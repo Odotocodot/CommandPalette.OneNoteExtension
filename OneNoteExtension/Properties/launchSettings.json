@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "OneNoteExtension (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "OneNoteExtension (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
