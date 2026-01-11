@@ -5,11 +5,11 @@
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
-namespace OneNoteExtension;
+namespace OneNoteExtension.Pages;
 
-internal sealed partial class OneNoteExtensionPage : ListPage
+internal sealed partial class HomePage : ListPage
 {
-    public OneNoteExtensionPage()
+    public HomePage()
     {
         Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
         Title = "OneNote";

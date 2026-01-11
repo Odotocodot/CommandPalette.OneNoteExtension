@@ -4,6 +4,7 @@
 
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+using OneNoteExtension.Pages;
 
 namespace OneNoteExtension;
 
@@ -16,13 +17,9 @@ public partial class CommandsProvider : CommandProvider
         DisplayName = "OneNote";
         Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
         _commands = [
-            new CommandItem(new OneNoteExtensionPage()) { Title = DisplayName },
+            new CommandItem(new HomePage()) { Title = DisplayName },
         ];
     }
 
-    public override ICommandItem[] TopLevelCommands()
-    {
-        return _commands;
-    }
-
+    public override ICommandItem[] TopLevelCommands() => _commands;
 }
