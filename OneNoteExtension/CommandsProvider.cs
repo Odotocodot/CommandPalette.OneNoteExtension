@@ -17,9 +17,10 @@ public partial class CommandsProvider : CommandProvider
     public CommandsProvider()
     {
         DisplayName = Resources.DisplayName;
-        Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
+        Icon = Icons.OneNote;
         _commands = [
-            new CommandItem(new DefaultSearchPage()) { Title = Resources.SearchOneNotePages },
+            new DefaultSearchPage().ToCommandItem(DisplayName),
+            new RecentItemsPage().ToCommandItem(DisplayName),
         ];
     }
 

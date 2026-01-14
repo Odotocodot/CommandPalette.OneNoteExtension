@@ -15,8 +15,9 @@ internal static class Icons
     public static IconInfo Page => FromAssetName("page");
     public static IconInfo OpenInNewWindow { get; } = new IconInfo("\ue8a7");
     public static IconInfo Open { get; } = new IconInfo("\ue8e5");
+    public static IconInfo RecentPage => FromAssetName("page_recent");
 
-    public static IconInfo FromAssetName(string assetName) => coloredIcons
+    private static IconInfo FromAssetName(string assetName) => coloredIcons
         ? IconHelpers.FromRelativePath($"Assets\\{assetName}.color.svg")
         : IconHelpers.FromRelativePath($"Assets\\{assetName}.color.svg");
 }

@@ -79,7 +79,7 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OneNote Command Palette Extension.
+        ///   Looks up a localized string similar to OneNote Extension.
         /// </summary>
         internal static string DisplayName {
             get {
@@ -106,7 +106,7 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No pages found..
+        ///   Looks up a localized string similar to No pages found.
         /// </summary>
         internal static string NoPagesFound {
             get {
@@ -165,6 +165,15 @@ namespace OneNoteExtension.Properties {
         internal static string Unread {
             get {
                 return ResourceManager.GetString("Unread", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Recent OneNote Pages.
+        /// </summary>
+        internal static string ViewRecentOneNotePages {
+            get {
+                return ResourceManager.GetString("ViewRecentOneNotePages", resourceCulture);
             }
         }
     }

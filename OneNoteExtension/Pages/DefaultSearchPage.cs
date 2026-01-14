@@ -18,7 +18,7 @@ internal sealed partial class DefaultSearchPage : DynamicListPage
     public DefaultSearchPage()
     {
         Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
-        Title = Resources.OneNote;
+        Title = Resources.SearchOneNotePages;
         Name = Resources.Open;
         Icon = Icons.Search;
         EmptyContent = DefaultEmptyContent();

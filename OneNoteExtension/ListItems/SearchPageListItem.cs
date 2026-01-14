@@ -15,7 +15,8 @@ internal partial class SearchPageListItem : ListItem
 {
     private readonly LinqToOneNote.Page page;
 
-    public SearchPageListItem(LinqToOneNote.Page page)
+    public SearchPageListItem(LinqToOneNote.Page page) : this(page, Icons.Page) { }
+    public SearchPageListItem(LinqToOneNote.Page page, IconInfo icon)
     {
         Task.Run(GetSubTitle);
         this.page = page;
@@ -25,7 +26,7 @@ internal partial class SearchPageListItem : ListItem
             tags.Add(new Tag(Resources.Unread));
         }
         Title = page.Name;
-        Icon = Icons.Page;
+        Icon = icon;
         Command = new OpenInOneNoteCommand(page);
         Tags = [.. tags];
         Details = new Details
