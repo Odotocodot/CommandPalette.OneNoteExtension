@@ -24,6 +24,7 @@ internal partial class OpenInOneNoteCommand : InvokableCommand
     public override ICommandResult Invoke()
     {
         OneNote.Open(item, newWindow);
+        NativeMethods.BringProcessToFront("onenote");
         return CommandResult.Dismiss();
     }
 
