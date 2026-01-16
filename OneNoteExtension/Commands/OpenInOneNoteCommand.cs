@@ -10,20 +10,20 @@ namespace OneNoteExtension.Commands;
 
 internal partial class OpenInOneNoteCommand : InvokableCommand
 {
-    private readonly IOneNoteItem item;
-    private readonly bool newWindow;
+    private readonly IOneNoteItem _item;
+    private readonly bool _newWindow;
 
     public OpenInOneNoteCommand(IOneNoteItem item, bool newWindow = false)
     {
-        this.item = item;
-        this.newWindow = newWindow;
+        _item = item;
+        _newWindow = newWindow;
         Name = newWindow ? Resources.OpenInNewWindow : Resources.Open;
         //Icon = newWindow ? Icons.OpenInNewWindow : Icons.Open;
     }
 
     public override ICommandResult Invoke()
     {
-        OneNote.Open(item, newWindow);
+        OneNote.Open(_item, _newWindow);
         NativeMethods.BringProcessToFront("onenote");
         return CommandResult.Dismiss();
     }

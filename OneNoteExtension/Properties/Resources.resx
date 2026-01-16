@@ -132,11 +132,11 @@
   <data name="InvalidSearch" xml:space="preserve">
     <value>Searches must start with a letter or a digit</value>
   </data>
-  <data name="NoPagesFound" xml:space="preserve">
-    <value>No pages found</value>
+  <data name="NoMatchesFound" xml:space="preserve">
+    <value>No matches found</value>
   </data>
   <data name="Unread" xml:space="preserve">
-    <value>Unread</value>
+    <value>This item has unread changes</value>
   </data>
   <data name="Created" xml:space="preserve">
     <value>Created</value>
@@ -155,5 +155,31 @@
   </data>
   <data name="ViewRecentOneNotePages" xml:space="preserve">
     <value>View Recent OneNote Pages</value>
+  </data>
+  <data name="OneNoteExplorer" xml:space="preserve">
+    <value>OneNote Explorer</value>
+    <comment>File explorer but for OneNote</comment>
+  </data>
+  <data name="OneNoteItemNoChildren" xml:space="preserve">
+    <value>This OneNote item is empty</value>
+  </data>
+  <data name="DefaultFilter" xml:space="preserve">
+    <value>Default</value>
+    <comment>Standard/Normal</comment>
+  </data>
+  <data name="Pages" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="Hyperlink" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>Sections</value>
+  </data>
+  <data name="SectionGroups" xml:space="preserve">
+    <value>Section Groups</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total Pages</value>
   </data>
 </root>

@@ -79,11 +79,29 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        internal static string DefaultFilter {
+            get {
+                return ResourceManager.GetString("DefaultFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OneNote Extension.
         /// </summary>
         internal static string DisplayName {
             get {
                 return ResourceManager.GetString("DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string Hyperlink {
+            get {
+                return ResourceManager.GetString("Hyperlink", resourceCulture);
             }
         }
         
@@ -106,11 +124,11 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No pages found.
+        ///   Looks up a localized string similar to No matches found.
         /// </summary>
-        internal static string NoPagesFound {
+        internal static string NoMatchesFound {
             get {
-                return ResourceManager.GetString("NoPagesFound", resourceCulture);
+                return ResourceManager.GetString("NoMatchesFound", resourceCulture);
             }
         }
         
@@ -120,6 +138,24 @@ namespace OneNoteExtension.Properties {
         internal static string OneNote {
             get {
                 return ResourceManager.GetString("OneNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OneNote Explorer.
+        /// </summary>
+        internal static string OneNoteExplorer {
+            get {
+                return ResourceManager.GetString("OneNoteExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This OneNote item is empty.
+        /// </summary>
+        internal static string OneNoteItemNoChildren {
+            get {
+                return ResourceManager.GetString("OneNoteItemNoChildren", resourceCulture);
             }
         }
         
@@ -142,6 +178,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pages.
+        /// </summary>
+        internal static string Pages {
+            get {
+                return ResourceManager.GetString("Pages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search OneNote pages.
         /// </summary>
         internal static string SearchOneNotePages {
@@ -160,7 +205,34 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unread.
+        ///   Looks up a localized string similar to Section Groups.
+        /// </summary>
+        internal static string SectionGroups {
+            get {
+                return ResourceManager.GetString("SectionGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sections.
+        /// </summary>
+        internal static string Sections {
+            get {
+                return ResourceManager.GetString("Sections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Pages.
+        /// </summary>
+        internal static string TotalPages {
+            get {
+                return ResourceManager.GetString("TotalPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This item has unread changes.
         /// </summary>
         internal static string Unread {
             get {

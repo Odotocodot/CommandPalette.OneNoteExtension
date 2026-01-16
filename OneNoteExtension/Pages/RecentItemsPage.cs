@@ -2,6 +2,7 @@
 using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+using OneNoteExtension.Helpers;
 using OneNoteExtension.ListItems;
 using OneNoteExtension.Properties;
 
@@ -14,12 +15,13 @@ internal partial class RecentItemsPage : ListPage
         Icon = Icons.RecentPage;
         Title = Resources.ViewRecentOneNotePages;
         Name = Resources.Open;
+        EmptyContent = PageHelper.EmptyContents.NoMatchesFound;
     }
 
     public override IListItem[] GetItems() => OneNote.GetFullHierarchy().Notebooks
                                                      .GetAllPages()
                                                      .OrderByDescending(p => p.LastModified)
                                                      .Take(20)
-                                                     .Select(p => new SearchPageListItem(p, Icons.RecentPage))
+                                                     .Select(p => new OneNoteItemListItem(p, Icons.RecentPage, true))
                                                      .ToArray();
 }

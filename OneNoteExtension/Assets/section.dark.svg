@@ -1,0 +1,13 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_0_687)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M84 48.8103C84 38.7181 90.3136 29.7041 99.7982 26.2552L161.266 3.90325C166.484 2.00599 172 5.86988 172 11.4216V244.579C172 250.13 166.484 253.994 161.266 252.097L99.7981 229.745C90.3136 226.296 84 217.282 84 207.19V48.8103Z" fill="url(#color)"/>
+</g>
+<defs>
+<clipPath id="clip0_0_687">
+<rect width="256" height="256" fill="white"/>
+</clipPath>
+<linearGradient id="color">
+<stop stop-color="white"/>
+</linearGradient>
+</defs>
+</svg>
