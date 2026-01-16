@@ -15,7 +15,7 @@ internal abstract partial class SearchPage : DynamicListPage
     {
         if (string.IsNullOrWhiteSpace(SearchText))
         {
-            EmptyContent = PageHelper.EmptyContents.EmptySearch;
+            EmptyContent = EmptyContentHelper.EmptySearch;
             return [];
         }
 
@@ -34,7 +34,7 @@ internal abstract partial class SearchPage : DynamicListPage
 
         if (items.Length == 0)
         {
-            EmptyContent = PageHelper.EmptyContents.NoMatchesFound;
+            EmptyContent = EmptyContentHelper.NoMatchesFound;
             return [];
         }
 

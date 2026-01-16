@@ -15,7 +15,7 @@ internal partial class RecentItemsPage : ListPage
         Icon = Icons.RecentPage;
         Title = Resources.ViewRecentOneNotePages;
         Name = Resources.Open;
-        EmptyContent = PageHelper.EmptyContents.NoMatchesFound;
+        EmptyContent = EmptyContentHelper.NoMatchesFound;
     }
 
     public override IListItem[] GetItems() => OneNote.GetFullHierarchy().Notebooks

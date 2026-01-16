@@ -27,7 +27,7 @@ internal partial class OneNoteExplorerPage : SearchPage
             : $"{Resources.OneNoteExplorer} | {relativePath}";
         Icon = Icons.GetIcon(item);
         Name = "Enter";
-        EmptyContent = PageHelper.EmptyContents.NoChildren;
+        EmptyContent = EmptyContentHelper.NoChildren;
     }
 
     public override IListItem[] GetItems()
@@ -44,7 +44,7 @@ internal partial class OneNoteExplorerPage : SearchPage
                     var items = _item.Children.Select(i => new OneNoteItemListItem(i, false)).ToArray();
                     if (items.Length == 0)
                     {
-                        EmptyContent = PageHelper.EmptyContents.NoChildren;
+                        EmptyContent = EmptyContentHelper.NoChildren;
                     }
                     return items;
                 }

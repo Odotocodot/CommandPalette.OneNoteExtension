@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
-namespace OneNoteExtension;
+namespace OneNoteExtension.Helpers;
 
 internal static class Icons
 {

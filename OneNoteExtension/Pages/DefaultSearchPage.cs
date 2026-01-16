@@ -11,7 +11,7 @@ internal sealed partial class DefaultSearchPage : SearchPage
         Title = Resources.SearchOneNotePages;
         Name = Resources.Open;
         Icon = Icons.Search;
-        EmptyContent = PageHelper.EmptyContents.EmptySearch;
+        EmptyContent = EmptyContentHelper.EmptySearch;
     }
 
     public override IListItem[] GetItems() => Search(OneNote.FindPages, true, true);
