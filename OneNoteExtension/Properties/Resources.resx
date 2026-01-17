@@ -179,7 +179,26 @@
   <data name="SectionGroups" xml:space="preserve">
     <value>Section Groups</value>
   </data>
-  <data name="TotalPages" xml:space="preserve">
-    <value>Total Pages</value>
+  <data name="CreateQuickNote" xml:space="preserve">
+    <value>Create Quick Note</value>
+  </data>
+  <data name="NewItemNamePlaceholder" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PageContentPlaceholder" xml:space="preserve">
+    <value>Page Content</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateOpen" xml:space="preserve">
+    <value>Create + Open</value>
+  </data>
+  <data name="CreateOneNotePage" xml:space="preserve">
+    <value>Create OneNote Page</value>
+  </data>
+  <data name="CreatedNewItemInOneNote" xml:space="preserve">
+    <value>Created {0} in OneNote</value>
+    <comment>where 0 is the name of the newly created item</comment>
   </data>
 </root>

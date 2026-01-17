@@ -18,6 +18,7 @@ internal static class Icons
     public static IconInfo OneNoteExplorer => FromAssetName("notebook_explorer");
     public static IconInfo Page => FromAssetName("page");
     public static IconInfo RecycleBin => FromAssetName("recycle_bin");
+    public static IconInfo NewPage => FromAssetName("page_new");
 
     private static IconInfo FromAssetName(string assetName) => IconHelpers.FromRelativePath($"Assets\\{assetName}.color.svg");
 

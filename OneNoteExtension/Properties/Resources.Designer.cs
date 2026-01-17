@@ -70,11 +70,56 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created.
         /// </summary>
         internal static string Created {
             get {
                 return ResourceManager.GetString("Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created {0} in OneNote.
+        /// </summary>
+        internal static string CreatedNewItemInOneNote {
+            get {
+                return ResourceManager.GetString("CreatedNewItemInOneNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create OneNote Page.
+        /// </summary>
+        internal static string CreateOneNotePage {
+            get {
+                return ResourceManager.GetString("CreateOneNotePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create + Open.
+        /// </summary>
+        internal static string CreateOpen {
+            get {
+                return ResourceManager.GetString("CreateOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Quick Note.
+        /// </summary>
+        internal static string CreateQuickNote {
+            get {
+                return ResourceManager.GetString("CreateQuickNote", resourceCulture);
             }
         }
         
@@ -120,6 +165,15 @@ namespace OneNoteExtension.Properties {
         internal static string LastModified {
             get {
                 return ResourceManager.GetString("LastModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string NewItemNamePlaceholder {
+            get {
+                return ResourceManager.GetString("NewItemNamePlaceholder", resourceCulture);
             }
         }
         
@@ -178,6 +232,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page Content.
+        /// </summary>
+        internal static string PageContentPlaceholder {
+            get {
+                return ResourceManager.GetString("PageContentPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pages.
         /// </summary>
         internal static string Pages {
@@ -219,15 +282,6 @@ namespace OneNoteExtension.Properties {
         internal static string Sections {
             get {
                 return ResourceManager.GetString("Sections", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Pages.
-        /// </summary>
-        internal static string TotalPages {
-            get {
-                return ResourceManager.GetString("TotalPages", resourceCulture);
             }
         }
         

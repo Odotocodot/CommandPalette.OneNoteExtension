@@ -19,6 +19,7 @@ public partial class CommandsProvider : CommandProvider
             new DefaultSearchPage().ToCommandItem(DisplayName),
             new RecentItemsPage().ToCommandItem(DisplayName),
             new OneNoteExplorerRootPage().ToCommandItem(DisplayName),
+            new QuickNoteFormPage().ToCommandItem(DisplayName),
         ];
     }
 

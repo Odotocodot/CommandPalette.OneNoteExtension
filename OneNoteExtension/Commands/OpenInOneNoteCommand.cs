@@ -1,6 +1,7 @@
 using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+using OneNoteExtension.Helpers;
 using OneNoteExtension.Properties;
 namespace OneNoteExtension.Commands;
 
@@ -19,8 +20,7 @@ internal partial class OpenInOneNoteCommand : InvokableCommand
 
     public override ICommandResult Invoke()
     {
-        OneNote.Open(_item, _newWindow);
-        NativeMethods.BringProcessToFront("onenote");
+        OneNoteHelper.OpenInOneNote(_item.Id, _newWindow);
         return CommandResult.Dismiss();
     }
 
