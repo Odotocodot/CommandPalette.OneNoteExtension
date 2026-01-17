@@ -5,10 +5,8 @@ using OneNoteExtension.Commands;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.Pages;
 using OneNoteExtension.Properties;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +23,7 @@ internal partial class OneNoteItemListItem : ListItem
         {
             tags.Add(new Tag
             {
-                Icon = new IconInfo("\ue70f"),
+                Icon = Icons.UnreadChanges,
                 ToolTip = Resources.Unread
             });
         }
@@ -41,7 +39,7 @@ internal partial class OneNoteItemListItem : ListItem
         {
             tags.Add(new Tag
             {
-                Icon = section.Locked ? new IconInfo("\ue72e") : new IconInfo("\ue785")
+                Icon = section.Locked ? Icons.Locked : Icons.Unlocked,
             });
         }
 

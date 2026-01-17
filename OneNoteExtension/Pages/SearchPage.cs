@@ -2,7 +2,6 @@
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.ListItems;
-using OneNoteExtension.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +20,7 @@ internal abstract partial class SearchPage : DynamicListPage
 
         if (invalidCharCheck && !char.IsLetterOrDigit(SearchText[0]))
         {
-            EmptyContent = new CommandItem
-            {
-                Title = Resources.InvalidSearch,
-                Icon = Icons.Invalid
-            };
+            EmptyContent = EmptyContentHelper.InvalidSearch;
             return [];
         }
         IsLoading = true;

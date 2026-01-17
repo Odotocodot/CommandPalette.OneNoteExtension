@@ -26,4 +26,9 @@ internal static class EmptyContentHelper
         Title = Resources.OneNoteItemNoChildren,
         Icon = Icons.OneNote,
     };
+    public static CommandItem InvalidSearch { get; } = new()
+    {
+        Title = Resources.InvalidSearch,
+        Icon = Icons.Invalid
+    };
 }
