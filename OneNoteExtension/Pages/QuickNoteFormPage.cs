@@ -101,26 +101,9 @@ internal partial class QuickNoteFormPage : ContentPage
             var pageContent = formInput["content"]?.ToString();
             _ = bool.TryParse(formData["openOneNote"]?.ToString(), out var showOneNote);
 
-            var pageId = OneNote.CreateQuickNote(pageName, showOneNote ? OpenMode.ExistingOrNewWindow : OpenMode.None);
-            OneNote.ComObject.GetPageContent(pageId, out var pageContentXml);
-            var xmlWrap = $"""
-						<one:Outline>
-							<one:Position x="36.0" y="86.4000015258789" z="0"/>
-							<one:Size width="72.0" height="13.42771339416504"/>
-							<one:OEChildren>
-								<one:OE alignment="left">
-									<one:T>
-										<![CDATA[{pageContent}]]>
-									</one:T>
-								</one:OE>
-							</one:OEChildren>
-						</one:Outline>
-						""";
-            pageContentXml = pageContentXml.Insert(pageContentXml.IndexOf("</one:Page>", StringComparison.Ordinal), xmlWrap);
-            OneNote.UpdatePageContent(pageContentXml);
+            OneNoteHelper.CreateQuickNote(pageName, pageContent, showOneNote);
             if (showOneNote)
             {
-                OneNoteHelper.OpenInOneNote(pageId, false);
                 return CommandResult.Dismiss();
             }
             else

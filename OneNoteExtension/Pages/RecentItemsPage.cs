@@ -18,10 +18,10 @@ internal partial class RecentItemsPage : ListPage
         EmptyContent = EmptyContentHelper.NoMatchesFound;
     }
 
-    public override IListItem[] GetItems() => OneNote.GetFullHierarchy().Notebooks
-                                                     .GetAllPages()
-                                                     .OrderByDescending(p => p.LastModified)
-                                                     .Take(20)
-                                                     .Select(p => new OneNoteItemListItem(p, Icons.RecentPage, true))
-                                                     .ToArray();
+    public override IListItem[] GetItems() => OneNoteHelper.GetFullHierarchy().Notebooks
+                                                           .GetAllPages()
+                                                           .OrderByDescending(p => p.LastModified)
+                                                           .Take(20)
+                                                           .Select(p => new OneNoteItemListItem(p, Icons.RecentPage, true))
+                                                           .ToArray();
 }

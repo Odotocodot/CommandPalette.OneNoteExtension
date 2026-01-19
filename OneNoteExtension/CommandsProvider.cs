@@ -1,5 +1,4 @@
 using System;
-using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
@@ -26,7 +25,7 @@ public partial class CommandsProvider : CommandProvider
     public override void Dispose()
     {
         base.Dispose();
-        OneNote.ReleaseComObject();
+        OneNoteHelper.Dispose();
         GC.SuppressFinalize(this);
     }
 

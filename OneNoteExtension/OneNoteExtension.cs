@@ -18,7 +18,7 @@ public sealed partial class OneNoteExtension : IExtension, IDisposable
 
     public OneNoteExtension(ManualResetEvent extensionDisposedEvent)
     {
-        this._extensionDisposedEvent = extensionDisposedEvent;
+        _extensionDisposedEvent = extensionDisposedEvent;
     }
 
     public object? GetProvider(ProviderType providerType)
@@ -30,5 +30,9 @@ public sealed partial class OneNoteExtension : IExtension, IDisposable
         };
     }
 
-    public void Dispose() => this._extensionDisposedEvent.Set();
+    public void Dispose()
+    {
+        _extensionDisposedEvent.Set();
+        _provider.Dispose();
+    }
 }

@@ -1,4 +1,3 @@
-using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.Properties;
@@ -14,5 +13,5 @@ internal sealed partial class DefaultSearchPage : SearchPage
         EmptyContent = EmptyContentHelper.EmptySearch;
     }
 
-    public override IListItem[] GetItems() => Search(OneNote.FindPages, true, true);
+    public override IListItem[] GetItems() => Search(OneNoteHelper.FindPages, true, true);
 }

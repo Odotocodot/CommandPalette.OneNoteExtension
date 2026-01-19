@@ -1,5 +1,4 @@
 using System.Linq;
-using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
@@ -19,8 +18,8 @@ internal partial class OneNoteExplorerRootPage : ListPage
     public override IListItem[] GetItems()
     {
         IsLoading = true;
-        var _root = OneNote.GetFullHierarchy(); //TODO: update when changed 
+        var notebooks = OneNoteHelper.GetFullHierarchy().Notebooks.Select(n => new OneNoteItemListItem(n, false)).ToArray();  //TODO: update when changed 
         IsLoading = false;
-        return _root.Notebooks.Select(n => new OneNoteItemListItem(n, false)).ToArray();
+        return notebooks;
     }
 }

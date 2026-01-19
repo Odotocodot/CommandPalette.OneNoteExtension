@@ -35,7 +35,7 @@ internal partial class OneNoteExplorerPage : SearchPage
         switch (Filters?.CurrentFilterId)
         {
             case OneNoteExplorerFilters.ScopeSearchFilterId:
-                return Search(search => OneNote.FindPages(search, _item), true, true);
+                return Search(search => OneNoteHelper.FindPages(search, _item), true, true);
             case OneNoteExplorerFilters.TitleSearchFilterId:
                 return Search(search => ListHelpers.FilterList(_item.Descendants(), search, (search, child) => StringMatcher.FuzzySearch(search, child.Name).Score), false, true);
             default:
