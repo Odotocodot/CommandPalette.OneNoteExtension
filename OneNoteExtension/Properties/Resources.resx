@@ -201,4 +201,7 @@
     <value>Created {0} in OneNote</value>
     <comment>where 0 is the name of the newly created item</comment>
   </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
 </root>

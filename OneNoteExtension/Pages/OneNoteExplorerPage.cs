@@ -26,7 +26,7 @@ internal partial class OneNoteExplorerPage : SearchPage
             ? $"{Resources.OneNoteExplorer} | {notebook.DisplayName}"
             : $"{Resources.OneNoteExplorer} | {relativePath}";
         Icon = Icons.GetIcon(item);
-        Name = "Enter";
+        Name = Resources.Enter;
         EmptyContent = EmptyContentHelper.NoChildren;
     }
 
