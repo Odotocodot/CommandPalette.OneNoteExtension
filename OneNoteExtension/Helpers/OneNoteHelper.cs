@@ -73,8 +73,8 @@ internal static class OneNoteHelper
     public static void CreateQuickNote(string? pageName, string? pageContent, bool showOneNote)
     {
         ResetTimeout();
-        var pageId = OneNote.CreateQuickNote(pageName, showOneNote ? OpenMode.ExistingOrNewWindow : OpenMode.None);
-        OneNote.ComObject.GetPageContent(pageId, out var pageContentXml);
+        OneNote.CreateQuickNote(pageName, out Page page, showOneNote ? OpenMode.ExistingOrNewWindow : OpenMode.None);
+        var pageContentXml = OneNote.GetPageContent(page);
         var xmlWrap = $"""
 						<one:Outline>
 							<one:Position x="36.0" y="86.4000015258789" z="0"/>
