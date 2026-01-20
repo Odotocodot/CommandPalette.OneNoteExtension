@@ -204,4 +204,8 @@
   <data name="Enter" xml:space="preserve">
     <value>Enter</value>
   </data>
+  <data name="Titles" xml:space="preserve">
+    <value>Titles</value>
+    <comment>Titles of OneNote items</comment>
+  </data>
 </root>

@@ -37,7 +37,7 @@ internal partial class OneNoteExplorerPage : SearchPage
             case OneNoteExplorerFilters.ScopeSearchFilterId:
                 return Search(search => OneNoteHelper.FindPages(search, _item), true, true);
             case OneNoteExplorerFilters.TitleSearchFilterId:
-                return Search(search => ListHelpers.FilterList(_item.Descendants(), search, (search, child) => StringMatcher.FuzzySearch(search, child.Name).Score), false, true);
+                return Search(search => ListHelpers.FilterList(_item.Descendants(), search, (search, child) => StringMatcher.FuzzySearch(search, child.Name).Score), false, true, true);
             default:
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
@@ -61,7 +61,7 @@ internal partial class OneNoteExplorerPage : SearchPage
         [
             new Filter { Id = DefaultFilterId, Name = Resources.DefaultFilter},// Viewing direct children
             new Filter { Id = ScopeSearchFilterId, Name = Resources.Pages, Icon = Icons.Page },
-            //new Filter { Id = TitleSearchFilterId, Name = "Search titles only", Icon = new IconInfo("*")},
+            new Filter { Id = TitleSearchFilterId, Name = Resources.Titles, Icon = Icons.Title },
         ];
     }
 }

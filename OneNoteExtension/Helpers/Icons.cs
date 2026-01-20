@@ -22,6 +22,7 @@ internal static class Icons
     public static IconInfo UnreadChanges { get; } = new("\ue70f");
     public static IconInfo Locked { get; } = new("\ue72e");
     public static IconInfo Unlocked { get; } = new("\ue785");
+    public static IconInfo Title { get; } = new("\uf714");
 
     private static IconInfo FromAssetName(string assetName) => IconHelpers.FromRelativePath($"Assets\\{assetName}.color.svg");
 

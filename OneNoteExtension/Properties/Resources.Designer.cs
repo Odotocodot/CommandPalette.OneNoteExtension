@@ -295,6 +295,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Titles.
+        /// </summary>
+        internal static string Titles {
+            get {
+                return ResourceManager.GetString("Titles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This item has unread changes.
         /// </summary>
         internal static string Unread {
