@@ -14,12 +14,16 @@ internal static class EmptyContentHelper
     public static CommandItem EmptySearch { get; } = new()
     {
         Title = Resources.SearchPageDefaultEmptyContent,
-        Icon = Icons.OneNote
-        //MoreCommands =
-        //[
-        //    new CommandContextItem(new NotebookExplorerPage()) { Title = "Goto Notebook Explorer" }
-        //]
+        Icon = Icons.OneNote,
+        MoreCommands =
+        [
+            ToContextItem(TopLevelCommandsHelper.RecentPages),
+            ToContextItem(TopLevelCommandsHelper.QuickNote),
+            ToContextItem(TopLevelCommandsHelper.OneNoteExplorer),
+        ]
+
     };
+    private static CommandContextItem ToContextItem(Page page) => new(page) { Title = page.Title };
 
     public static CommandItem NoChildren { get; } = new()
     {
