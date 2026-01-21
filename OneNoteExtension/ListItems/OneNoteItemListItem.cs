@@ -74,7 +74,7 @@ internal partial class OneNoteItemListItem : ListItem
         //Subtitle
         if (addSubtitle)
         {
-            Task.Run(() => Subtitle = OneNoteItemHelper.GetSubtitle(item, false));
+            Task.Run(() => Subtitle = OneNoteHelper.GetSubtitle(item, false));
         }
 
         //Command 

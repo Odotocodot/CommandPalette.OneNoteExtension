@@ -1,11 +1,10 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.Json.Nodes;
-using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.Properties;
+
 namespace OneNoteExtension.Pages;
 
 internal partial class QuickNoteFormPage : ContentPage

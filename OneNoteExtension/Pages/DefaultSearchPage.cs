@@ -1,6 +1,7 @@
 using Microsoft.CommandPalette.Extensions;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.Properties;
+
 namespace OneNoteExtension.Pages;
 
 internal sealed partial class DefaultSearchPage : SearchPage
