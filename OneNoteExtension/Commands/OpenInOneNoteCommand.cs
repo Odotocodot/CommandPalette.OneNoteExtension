@@ -15,7 +15,7 @@ internal partial class OpenInOneNoteCommand : InvokableCommand
         _item = item;
         _newWindow = newWindow;
         Name = newWindow ? Resources.OpenInNewWindow : Resources.Open;
-        //Icon = newWindow ? Icons.OpenInNewWindow : Icons.Open;
+        Icon = Icons.Open;
     }
 
     public override ICommandResult Invoke()

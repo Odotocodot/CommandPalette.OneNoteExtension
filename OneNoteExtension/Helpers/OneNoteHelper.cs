@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using LinqToOneNote;
+using LinqToOneNote.Abstractions;
 
 namespace OneNoteExtension.Helpers;
 
@@ -70,26 +71,63 @@ internal static class OneNoteHelper
         return OneNote.GetFullHierarchy();
     }
 
-    public static void CreateQuickNote(string? pageName, string? pageContent, bool showOneNote)
+    public static void CreateQuickNote(string? name, string? content, OpenMode openMode)
     {
         ResetTimeout();
-        OneNote.CreateQuickNote(pageName, out Page page, showOneNote ? OpenMode.ExistingOrNewWindow : OpenMode.None);
+        OneNote.CreateQuickNote(name, out Page page, openMode);
+        if (!string.IsNullOrWhiteSpace(content))
+        {
+            UpdatePageContent(page, content);
+        }
+    }
+
+    private static void UpdatePageContent(Page page, string pageContent)
+    {
         var pageContentXml = OneNote.GetPageContent(page);
         var xmlWrap = $"""
-						<one:Outline>
-							<one:Position x="36.0" y="86.4000015258789" z="0"/>
-							<one:Size width="72.0" height="13.42771339416504"/>
-							<one:OEChildren>
-								<one:OE alignment="left">
-									<one:T>
-										<![CDATA[{pageContent}]]>
-									</one:T>
-								</one:OE>
-							</one:OEChildren>
-						</one:Outline>
-						""";
+                       <one:Outline>
+                       	<one:Position x="36.0" y="86.4000015258789" z="0"/>
+                       	<one:Size width="72.0" height="13.42771339416504"/>
+                       	<one:OEChildren>
+                       		<one:OE alignment="left">
+                       			<one:T>
+                       				<![CDATA[{pageContent}]]>
+                       			</one:T>
+                       		</one:OE>
+                       	</one:OEChildren>
+                       </one:Outline>
+                       """;
         pageContentXml = pageContentXml.Insert(pageContentXml.IndexOf("</one:Page>", StringComparison.Ordinal), xmlWrap);
         OneNote.UpdatePageContent(pageContentXml);
+    }
+
+
+    public static void CreatePage(string name, string? content, Section parent, OpenMode openMode)
+    {
+        ResetTimeout();
+        var page = OneNote.CreatePage(parent, name, openMode);
+        if (!string.IsNullOrWhiteSpace(content))
+        {
+            UpdatePageContent(page, content);
+        }
+    }
+
+    public static void CreateSection(string name, INotebookOrSectionGroup parent, OpenMode openMode)
+    {
+        ResetTimeout();
+        OneNote.CreateSection(parent, name, openMode);
+    }
+
+    public static void CreateSectionGroup(string name, INotebookOrSectionGroup parent, OpenMode openMode)
+    {
+		ResetTimeout();
+		OneNote.CreateSectionGroup(parent, name, openMode);
+    }
+
+    public static void CreateNotebook(string name, Root root, OpenMode openMode)
+    {
+	    ResetTimeout();
+	    root.CreateNotebook(name, openMode);
     }
 
     public static string GetSubtitle(IOneNoteItem item, bool includeSelf)

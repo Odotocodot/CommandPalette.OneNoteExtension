@@ -12,13 +12,15 @@ internal static class Icons
     public static IconInfo Search => FromAssetName("search");
     public static IconInfo OneNote => IconHelpers.FromRelativePath("Assets\\onenote.svg");
     public static IconInfo Invalid => IconHelpers.FromRelativePath("Assets\\warning.light.svg");
-    //public static IconInfo OpenInNewWindow { get; } = new IconInfo("\ue8a7");
-    //public static IconInfo Open { get; } = new IconInfo("\ue8e5");
+    public static IconInfo Open { get; } = new IconInfo("\ue8a7"); //OpenInNewWindow
     public static IconInfo RecentPage => FromAssetName("page_recent");
     public static IconInfo OneNoteExplorer => FromAssetName("notebook_explorer");
     public static IconInfo Page => FromAssetName("page");
     public static IconInfo RecycleBin => FromAssetName("recycle_bin");
     public static IconInfo NewPage => FromAssetName("page_new");
+    public static IconInfo NewSection => FromAssetName("section_new");
+    public static IconInfo NewSectionGroup => FromAssetName("section_group_new");
+    public static IconInfo NewNotebook => FromAssetName("notebook_new");
     public static IconInfo UnreadChanges { get; } = new("\ue70f");
     public static IconInfo Locked { get; } = new("\ue72e");
     public static IconInfo Unlocked { get; } = new("\ue785");

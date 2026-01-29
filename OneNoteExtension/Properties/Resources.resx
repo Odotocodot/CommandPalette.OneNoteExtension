@@ -126,9 +126,6 @@
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
-  <data name="OneNote" xml:space="preserve">
-    <value>OneNote</value>
-  </data>
   <data name="InvalidSearch" xml:space="preserve">
     <value>Searches must start with a letter or a digit</value>
   </data>
@@ -182,10 +179,10 @@
   <data name="CreateQuickNote" xml:space="preserve">
     <value>Create Quick Note</value>
   </data>
-  <data name="NewItemNamePlaceholder" xml:space="preserve">
+  <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="PageContentPlaceholder" xml:space="preserve">
+  <data name="PageContent" xml:space="preserve">
     <value>Page Content</value>
   </data>
   <data name="Create" xml:space="preserve">
@@ -207,5 +204,26 @@
   <data name="Titles" xml:space="preserve">
     <value>Titles</value>
     <comment>Titles of OneNote items</comment>
+  </data>
+  <data name="CreateOneNoteSection" xml:space="preserve">
+    <value>Create OneNote Section</value>
+  </data>
+  <data name="NameCannotContainChars" xml:space="preserve">
+    <value>Names cannot be empty or contain the characters: {0}</value>
+  </data>
+  <data name="CreateOneNoteSectionGroup" xml:space="preserve">
+    <value>Create OneNote Section Group</value>
+  </data>
+  <data name="CreateOneNoteNotebook" xml:space="preserve">
+    <value>Create OneNote Notebook</value>
+  </data>
+  <data name="OpenXInOneNote" xml:space="preserve">
+    <value>Open "{0}" in OneNote</value>
+  </data>
+  <data name="OpenOrCreateItemListItemSubtitle" xml:space="preserve">
+    <value>See more commands for additional options</value>
+  </data>
+  <data name="OpenOneNote" xml:space="preserve">
+    <value>Open OneNote</value>
   </data>
 </root>

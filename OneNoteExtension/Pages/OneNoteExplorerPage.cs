@@ -32,23 +32,25 @@ internal partial class OneNoteExplorerPage : SearchPage
 
     public override IListItem[] GetItems()
     {
-        switch (Filters?.CurrentFilterId)
+        return (Filters?.CurrentFilterId) switch
         {
-            case OneNoteExplorerFilters.ScopeSearchFilterId:
-                return Search(search => OneNoteHelper.FindPages(search, _item), true, true);
-            case OneNoteExplorerFilters.TitleSearchFilterId:
-                return Search(search => ListHelpers.FilterList(_item.Descendants(), search, (search, child) => StringMatcher.FuzzySearch(search, child.Name).Score), false, true, true);
-            default:
-                if (string.IsNullOrWhiteSpace(SearchText))
+            OneNoteExplorerFilters.ScopeSearchFilterId => Search(search => OneNoteHelper.FindPages(search, _item), true, true),
+            OneNoteExplorerFilters.TitleSearchFilterId => Search(search => ListHelpers.FilterList(_item.Descendants(), search, (search, child) => StringMatcher.FuzzySearch(search, child.Name).Score), false, true, true),
+            _ => [new OpenOrCreateItemListItem(_item), .. DefaultFilter()],
+        };
+
+        IListItem[] DefaultFilter()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                var items = _item.Children.Select(i => new OneNoteItemListItem(i, false)).ToArray();
+                if (items.Length == 0)
                 {
-                    var items = _item.Children.Select(i => new OneNoteItemListItem(i, false)).ToArray();
-                    if (items.Length == 0)
-                    {
-                        EmptyContent = EmptyContentHelper.NoChildren;
-                    }
-                    return items;
+                    EmptyContent = EmptyContentHelper.NoChildren;
                 }
-                return Search(search => ListHelpers.FilterList(_item.Children, search, (search, child) => StringMatcher.FuzzySearch(search, child.Name).Score), false, false);
+                return items;
+            }
+            return Search(search => ListHelpers.FilterList(_item.Children, search, (innerSearch, child) => StringMatcher.FuzzySearch(innerSearch, child.Name).Score), false, false);
         }
     }
 

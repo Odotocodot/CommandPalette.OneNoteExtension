@@ -7,7 +7,7 @@ using OneNoteExtension.Properties;
 
 namespace OneNoteExtension.Pages;
 
-internal partial class OneNoteExplorerRootPage : ListPage
+internal partial class OneNoteExplorerRootPage : DynamicListPage
 {
     public OneNoteExplorerRootPage()
     {
@@ -19,8 +19,21 @@ internal partial class OneNoteExplorerRootPage : ListPage
     public override IListItem[] GetItems()
     {
         IsLoading = true;
-        var notebooks = OneNoteHelper.GetFullHierarchy().Notebooks.Select(n => new OneNoteItemListItem(n, false)).ToArray();
+
+        var root = OneNoteHelper.GetFullHierarchy();
+        var notebooks = root.Notebooks.Select(n => new OneNoteItemListItem(n, false));
         IsLoading = false;
-        return notebooks;
+
+        return string.IsNullOrWhiteSpace(SearchText)
+            ? [new OpenOneNoteListItem(root), .. notebooks]
+            : [.. ListHelpers.FilterList(notebooks, SearchText, ListHelpers.ScoreListItem)];
+    }
+
+    public override void UpdateSearchText(string oldSearch, string newSearch)
+    {
+        if(newSearch != oldSearch)
+        {
+            RaiseItemsChanged();
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace OneNoteExtension.ListItems;
 
 internal partial class OneNoteItemListItem : ListItem
 {
+    //commandIsOpen -> open in this context means open in oneNote
     public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpen = false) : this(item, Icons.GetIcon(item), addSubtitle, commandIsOpen) {  }
     public OneNoteItemListItem(IOneNoteItem item, IconInfo icon, bool addSubtitle, bool commandIsOpen = false)
     {
