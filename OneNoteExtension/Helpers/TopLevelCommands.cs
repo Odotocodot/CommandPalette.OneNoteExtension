@@ -1,7 +1,8 @@
 using OneNoteExtension.Pages;
 namespace OneNoteExtension.Helpers;
 
-internal static class TopLevelCommandsHelper
+//For top level commands, the Name should be equal to the Title property
+internal static class TopLevelCommands
 {
     public static DefaultSearchPage DefaultSearch => new();
     public static RecentItemsPage RecentPages => new();

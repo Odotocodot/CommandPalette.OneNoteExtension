@@ -120,7 +120,7 @@ internal static class OneNoteHelper
 
     public static void CreateSectionGroup(string name, INotebookOrSectionGroup parent, OpenMode openMode)
     {
-		ResetTimeout();
+        ResetTimeout();
 		OneNote.CreateSectionGroup(parent, name, openMode);
     }
 

@@ -13,8 +13,7 @@ internal partial class RecentItemsPage : ListPage
     public RecentItemsPage()
     {
         Icon = Icons.RecentPage;
-        Title = Resources.ViewRecentOneNotePages;
-        Name = Resources.Open;
+        Name = Title = Resources.ViewRecentOneNotePages;
         EmptyContent = EmptyContentHelper.NoMatchesFound;
     }
 

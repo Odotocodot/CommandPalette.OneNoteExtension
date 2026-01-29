@@ -8,8 +8,7 @@ internal sealed partial class DefaultSearchPage : SearchPage
 {
     public DefaultSearchPage()
     {
-        Title = Resources.SearchOneNotePages;
-        Name = Resources.Open;
+        Name = Title = Resources.SearchOneNotePages;
         Icon = Icons.Search;
         EmptyContent = EmptyContentHelper.EmptySearch;
     }

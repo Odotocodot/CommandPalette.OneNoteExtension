@@ -17,13 +17,12 @@ internal static class EmptyContentHelper
         Icon = Icons.OneNote,
         MoreCommands =
         [
-            ToContextItem(TopLevelCommandsHelper.RecentPages),
-            ToContextItem(TopLevelCommandsHelper.QuickNote),
-            ToContextItem(TopLevelCommandsHelper.OneNoteExplorer),
+            TopLevelCommands.RecentPages.ToContextItem(),
+            TopLevelCommands.QuickNote.ToContextItem(),
+            TopLevelCommands.OneNoteExplorer.ToContextItem(),
         ]
 
     };
-    private static CommandContextItem ToContextItem(Page page) => new(page) { Title = page.Title };
 
     public static CommandItem NoChildren { get; } = new()
     {

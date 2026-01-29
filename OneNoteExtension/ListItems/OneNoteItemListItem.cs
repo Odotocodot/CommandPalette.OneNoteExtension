@@ -119,5 +119,5 @@ internal partial class OneNoteItemListItem : ListItem
         };
     }
 
-    private static void AddProperty<T>(StringBuilder sb, string name, T value) => sb.AppendFormat(CultureInfo.CurrentCulture, "\r\n| {0} | {1} |", name, value);
+    private static void AddProperty<T>(StringBuilder sb, string name, T value) => sb.Append(CultureInfo.CurrentCulture, $"\r\n| {name} | {value} |");
 }

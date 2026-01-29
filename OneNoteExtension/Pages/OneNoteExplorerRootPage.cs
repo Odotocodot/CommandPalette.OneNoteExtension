@@ -11,9 +11,8 @@ internal partial class OneNoteExplorerRootPage : DynamicListPage
 {
     public OneNoteExplorerRootPage()
     {
-        Title = Resources.OneNoteExplorer;
+        Name = Title = Resources.OneNoteExplorer;
         Icon = Icons.OneNoteExplorer;
-        Name = Title;
     }
 
     public override IListItem[] GetItems()

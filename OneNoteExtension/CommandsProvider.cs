@@ -15,14 +15,14 @@ public partial class CommandsProvider : CommandProvider
         DisplayName = Resources.DisplayName;
         Icon = Icons.OneNote;
         _commands = [
-            ToCommandItem(TopLevelCommandsHelper.DefaultSearch),
-            ToCommandItem(TopLevelCommandsHelper.RecentPages),
-            ToCommandItem(TopLevelCommandsHelper.OneNoteExplorer),
-            ToCommandItem(TopLevelCommandsHelper.QuickNote),
+            ToCommandItem(Helpers.TopLevelCommands.DefaultSearch),
+            ToCommandItem(Helpers.TopLevelCommands.RecentPages),
+            ToCommandItem(Helpers.TopLevelCommands.OneNoteExplorer),
+            ToCommandItem(Helpers.TopLevelCommands.QuickNote),
         ];
     }
 
-    private CommandItem ToCommandItem(Page page) => new(page) { Title = page.Title, Subtitle = DisplayName };
+    private static CommandItem ToCommandItem(Page page) => page.ToContextItem(Resources.DisplayName);
 
     public override void Dispose()
     {
