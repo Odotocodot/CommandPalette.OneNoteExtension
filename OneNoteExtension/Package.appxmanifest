@@ -10,12 +10,12 @@
 
   <Identity
     Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
-    Version="0.0.2.0"  Name="CommandPalette.Extension.OneNote"/>
+    Version="0.0.2.0"  Name="Odotocodot.CommandPalette.OneNoteExtension"/>
   <!-- When you're ready to publish your extension, you'll need to change the
        Publisher= to match your own identity -->
 
   <Properties>
-    <DisplayName>Command Palette OneNote Extension</DisplayName>
+    <DisplayName>OneNote Extension for Command Palette</DisplayName>
     <PublisherDisplayName>Odotocodot</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -45,8 +45,8 @@
       <Extensions>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
-            <com:ExeServer Executable="OneNoteExtension.exe" Arguments="-RegisterProcessAsComServer" DisplayName="OneNote">
-              <com:Class Id="2586d13f-78bd-4923-bffe-c61d6e0d2263" DisplayName="OneNote" />
+            <com:ExeServer Executable="OneNoteExtension.exe" Arguments="-RegisterProcessAsComServer" DisplayName="OneNoteExtension">
+              <com:Class Id="2586d13f-78bd-4923-bffe-c61d6e0d2263" DisplayName="OneNoteExtension" />
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>
