@@ -100,4 +100,7 @@
 		<ILLinkTreatWarningsAsErrors>false</ILLinkTreatWarningsAsErrors>
 	</PropertyGroup>
 
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent"> 
+		<Exec Command="taskkill /IM $(AssemblyName).exe /F /FI &quot;STATUS eq UNKNOWN&quot;" />
+	</Target>
 </Project>
