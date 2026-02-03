@@ -1,5 +1,6 @@
 ﻿using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Properties;
+using System;
 
 namespace OneNoteExtension.Helpers;
 
@@ -24,6 +25,7 @@ internal static class EmptyContentHelper
 
     };
 
+    [Obsolete("Remove Not Needed any more")]
     public static CommandItem NoChildren { get; } = new()
     {
         Title = Resources.OneNoteItemNoChildren,

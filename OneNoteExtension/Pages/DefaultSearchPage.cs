@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace OneNoteExtension.Pages;
 
-internal sealed partial class DefaultSearchPage : ListPageExt, IDynamicListPage
+internal sealed partial class DefaultSearchPage : DynamicListPageExt
 {
     private readonly int _resultsPerLoad = 25;
     private readonly List<ListItem> _searchItems = [];
@@ -23,18 +23,15 @@ internal sealed partial class DefaultSearchPage : ListPageExt, IDynamicListPage
         PageUnloaded += _searchItems.Clear;
     }
 
-    public override string SearchText { get => base.SearchText; set => SearchChanged(value); }
-
-    private void SearchChanged(string value)
+    public override void UpdateSearchText(string oldSearch, string newSearch)
     {
-        SetSearchNoUpdate(value);
-        _searchItems.Clear();
         Search();
         RaiseItemsChanged();
     }
 
     private void Search()
     {
+        _searchItems.Clear();
         if (string.IsNullOrWhiteSpace(SearchText))
         {
             EmptyContent = EmptyContentHelper.EmptySearch;
