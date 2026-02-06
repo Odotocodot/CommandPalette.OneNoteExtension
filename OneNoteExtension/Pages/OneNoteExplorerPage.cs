@@ -4,24 +4,46 @@ using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.ListItems;
 using OneNoteExtension.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace OneNoteExtension.Pages;
 
-internal partial class OneNoteExplorerPage : DynamicListPageExt
+internal partial class OneNoteExplorerPage : SearchPage
 {
     private readonly IOneNoteItem _item;
-    private readonly int _resultsPerLoad = 25;
-    private readonly List<ListItem> _searchItems = [];
+    private readonly Lock _searchUpdateLock = new();
+
+    private SearchParameters _searchParameters;
+
+    private static readonly SearchParameters _scopeSearch = new(
+        (search, page) => OneNoteHelper.FindPages(search, page._item).AsListItems(true, true),
+        (search, page) => page.OnSearchChangedDefault(search, true));
+
+    private static readonly SearchParameters _titleSearch = new(
+        (search, page) => page._item.Descendants().FilterItems(search).AsListItems(true, true),
+        (search, page) => page.OnSearchChangedDefault(search, false));
+
+    private static readonly SearchParameters _childrenSearch = new(
+        (search, page) => string.IsNullOrWhiteSpace(search)
+            ? page._item.Children.AsListItems(false, false).Prepend(new OpenOrCreateItemListItem(page._item))
+            : page._item.Children.FilterItems(search).AsListItems(false, false),
+        (search, page) =>
+        {
+            page._searchItems.Clear();
+            page.GetMoreItems(search);
+            page.EmptyContent = page._searchItems.Count == 0 ? EmptyContentHelper.NotMatchesFoundWithCommands : null;
+        });
 
     public OneNoteExplorerPage(IOneNoteItem item)
     {
         _item = item;
-        if(item is not Section)
+        if (item is not Section)
         {
             var filters = new OneNoteExplorerFilters();
-            filters.PropChanged += (_, _) => UpdateSearchText(string.Empty, string.Empty);
+            filters.PropChanged += Filters_PropChanged;
             Filters = filters;
         }
         var relativePath = OneNoteHelper.GetSubtitle(item, true);
@@ -30,96 +52,43 @@ internal partial class OneNoteExplorerPage : DynamicListPageExt
             : $"{Resources.OneNoteExplorer} | {relativePath}";
         Icon = Icons.GetIcon(item);
         Name = Resources.Enter;
-        EmptyContent = EmptyContentHelper.NoChildren;
-        PageLoaded += () =>
-        {
-            UpdateSearchText(string.Empty, string.Empty);
-        };
+        HasMoreItems = true;
+        _searchParameters = _childrenSearch;
+        PageLoaded += () => UpdateSearchText(string.Empty, SearchText);
     }
 
-    public override IListItem[] GetItems() => [.. _searchItems];
+    private void Filters_PropChanged(object sender, IPropChangedEventArgs args)
+    {
+        _searchParameters = Filters?.CurrentFilterId switch
+        {
+            OneNoteExplorerFilters.ScopeSearchFilterId => _scopeSearch,
+            OneNoteExplorerFilters.TitleSearchFilterId => _titleSearch,
+            _ => _childrenSearch,
+        };
+        UpdateSearchText(string.Empty, SearchText);
+    }
 
     public override void UpdateSearchText(string oldSearch, string newSearch)
     {
-        switch(Filters?.CurrentFilterId)
+        lock (_searchUpdateLock) //Due to UpdateSearchText being called with PageLoaded, sometimes items are duplicated in the search
         {
-            case OneNoteExplorerFilters.ScopeSearchFilterId:
-                _searchItems.Clear();
-                if (string.IsNullOrWhiteSpace(SearchText))
-                {
-                    EmptyContent = EmptyContentHelper.EmptySearch;
-                    break;
-                }
-
-                if (!char.IsLetterOrDigit(SearchText[0]))
-                {
-                    EmptyContent = EmptyContentHelper.InvalidSearch;
-                    break;
-                }
-                LoadMoreItems();
-                EmptyContent = _searchItems.Count == 0 ? EmptyContentHelper.NoMatchesFound : null;
-                break;
-            case OneNoteExplorerFilters.TitleSearchFilterId:
-                _searchItems.Clear();
-                if (string.IsNullOrWhiteSpace(SearchText))
-                {
-                    EmptyContent = EmptyContentHelper.EmptySearch;
-                    break;
-                }
-                LoadMoreItems();
-                EmptyContent = _searchItems.Count == 0 ? EmptyContentHelper.NoMatchesFound : null;
-                break;
-            case OneNoteExplorerFilters.DefaultFilterId:
-            default:
-                _searchItems.Clear();
-                _searchItems.Add(new OpenOrCreateItemListItem(_item));
-                var results = _item.Children.Select(i => new OneNoteItemListItem(i, false));
-                if (string.IsNullOrWhiteSpace(SearchText))
-                {
-                    _searchItems.AddRange(results);
-                    break;
-                }
-                _searchItems.AddRange(ListHelpers.FilterList(results, SearchText).Cast<ListItem>());
-                break;
+            _searchParameters.OnSearchChanged(newSearch, this);
         }
-        RaiseItemsChanged();
-    }
-
-    private IEnumerable<ListItem> SearchAction(string search, int skip, int take)
-    {
-        return (Filters?.CurrentFilterId) switch
-        {
-            OneNoteExplorerFilters.ScopeSearchFilterId => OneNoteHelper.FindPages(search, _item).Skip(skip).Take(take).Select(x => new OneNoteItemListItem(x, true, true)),
-            OneNoteExplorerFilters.TitleSearchFilterId => ListHelpers.FilterList(_item.Descendants(), search, ScoreFunction).Select(x => new OneNoteItemListItem(x, true, true)),
-            _ => []
-        };
-    }
-
-    private void LoadMoreItems()
-    {
-        IsLoading = true;
-        var results = SearchAction(SearchText, _searchItems.Count, _resultsPerLoad);
-        var preCount = _searchItems.Count;
-        _searchItems.AddRange(results);
-        var postCount = _searchItems.Count;
-        HasMoreItems = (postCount - preCount) == _resultsPerLoad;
-        IsLoading = false;
-    }
-    public override void LoadMore()
-    {
-        LoadMoreItems();
         RaiseItemsChanged(_searchItems.Count);
     }
 
-    private static int ScoreFunction(string search, IOneNoteItem item) => StringMatcher.FuzzySearch(search, item.Name).Score;
+    protected override IEnumerable<ListItem> GetItemsAction(string search) => _searchParameters.GetItemsAction(search, this);
+
+    private record SearchParameters(Func<string, OneNoteExplorerPage, IEnumerable<ListItem>> GetItemsAction, Action<string, OneNoteExplorerPage> OnSearchChanged);
+
     private partial class OneNoteExplorerFilters : Filters
     {
-        public const string DefaultFilterId = "default";
+        public const string ChildrenFilterId = "default";
         public const string ScopeSearchFilterId = "scope";
         public const string TitleSearchFilterId = "title";
         public override IFilterItem[] GetFilters() =>
         [
-            new Filter { Id = DefaultFilterId, Name = Resources.DefaultFilter},// Viewing direct children
+            new Filter { Id = ChildrenFilterId, Name = Resources.DefaultFilter},// Viewing direct children
             new Filter { Id = ScopeSearchFilterId, Name = Resources.Pages, Icon = Icons.Page },
             new Filter { Id = TitleSearchFilterId, Name = Resources.Titles, Icon = Icons.Title },
         ];

@@ -9,11 +9,8 @@ using OneNoteExtension.Properties;
 
 namespace OneNoteExtension.Pages;
 
-internal partial class RecentItemsPage : ListPageExt
+internal partial class RecentItemsPage : LoadMorePage
 {
-    private const int _resultsPerLoad = 25;
-    private readonly List<ListItem> _searchItems = [];
-
     public RecentItemsPage()
     {
         Icon = Icons.RecentPage;
@@ -36,18 +33,11 @@ internal partial class RecentItemsPage : ListPageExt
         return [.. _searchItems];
     }
 
-    public override void LoadMore()
+    protected override IEnumerable<ListItem> GetItemsAction(string search)
     {
-        var results = OneNoteHelper.GetFullHierarchy().Notebooks
-                                   .GetAllPages()
-                                   .OrderByDescending(p => p.LastModified)
-                                   .Skip(_searchItems.Count)
-                                   .Take(_resultsPerLoad)
-                                   .Select(p => new OneNoteItemListItem(p, Icons.RecentPage, true));
-        var preCount = _searchItems.Count;
-        _searchItems.AddRange(results);
-        var postCount = _searchItems.Count;
-        HasMoreItems = (postCount - preCount) == _resultsPerLoad;
-        RaiseItemsChanged(_searchItems.Count);
+        return OneNoteHelper.GetFullHierarchy().Notebooks
+                            .GetAllPages()
+                            .OrderByDescending(p => p.LastModified)
+                            .AsListItems(true, true, Icons.RecentPage);
     }
 }

@@ -1,41 +1,41 @@
-﻿using LinqToOneNote;
-using Microsoft.CommandPalette.Extensions.Toolkit;
+﻿using Microsoft.CommandPalette.Extensions;
 using OneNoteExtension.Helpers;
-using OneNoteExtension.ListItems;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace OneNoteExtension.Pages;
 
-internal abstract partial class SearchPage : DynamicListPage
+internal abstract partial class SearchPage : LoadMorePage, IDynamicListPage
 {
-    protected ListItem[] Search(Func<string, IEnumerable<IOneNoteItem>> searchAction, bool invalidCharCheck, bool addSubtitle, bool commandIsOpen = false)
+    public override string SearchText
     {
-        if (string.IsNullOrWhiteSpace(SearchText))
+        get => base.SearchText;
+        set
         {
-            EmptyContent = EmptyContentHelper.EmptySearch;
-            return [];
+            SetSearchNoUpdate(value);
+            UpdateSearchText(base.SearchText, value);
         }
-
-        if (invalidCharCheck && !char.IsLetterOrDigit(SearchText[0]))
-        {
-            EmptyContent = EmptyContentHelper.InvalidSearch;
-            return [];
-        }
-        IsLoading = true;
-        var items = searchAction(SearchText).Select(x => new OneNoteItemListItem(x, addSubtitle, commandIsOpen)).ToArray();
-        IsLoading = false;
-
-        if (items.Length == 0)
-        {
-            EmptyContent = EmptyContentHelper.NoMatchesFound;
-            return [];
-        }
-
-        EmptyContent = null;
-        return items;
     }
 
-    public override void UpdateSearchText(string oldSearch, string newSearch) => RaiseItemsChanged();
+    protected void OnSearchChangedDefault(string search, bool invalidCharCheck)
+    {
+        _searchItems.Clear();
+        if (string.IsNullOrWhiteSpace(search))
+        {
+            EmptyContent = EmptyContentHelper.EmptySearch;
+            return;
+        }
+
+        if (invalidCharCheck && !char.IsLetterOrDigit(search[0]))
+        {
+            EmptyContent = EmptyContentHelper.InvalidSearch;
+            return;
+        }
+
+        GetMoreItems(search);
+
+        EmptyContent = _searchItems.Count == 0 ? EmptyContentHelper.NoMatchesFound : null;
+    }
+
+    public override IListItem[] GetItems() => [.. _searchItems];
+
+    public abstract void UpdateSearchText(string oldSearch, string newSearch);
 }

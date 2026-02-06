@@ -7,6 +7,7 @@ using OneNoteExtension.Pages;
 using OneNoteExtension.Properties;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +15,8 @@ namespace OneNoteExtension.ListItems;
 
 internal partial class OneNoteItemListItem : ListItem
 {
-    //commandIsOpen -> open in this context means open in oneNote
-    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpen = false) : this(item, Icons.GetIcon(item), addSubtitle, commandIsOpen) {  }
-    public OneNoteItemListItem(IOneNoteItem item, IconInfo icon, bool addSubtitle, bool commandIsOpen = false)
+    //commandIsOpen -> open in this context means open in oneNote, TODO: remove default value
+    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
     {
         //Tags
         var tags = new List<Tag>();
@@ -109,7 +109,7 @@ internal partial class OneNoteItemListItem : ListItem
 
         Title = item is Notebook notebook ? notebook.DisplayName : item.Name;
         Command = command;
-        Icon = icon;
+        Icon = icon ?? Icons.GetIcon(item);
         Tags = tags.ToArray();
         Details = new Details
         {
@@ -119,5 +119,20 @@ internal partial class OneNoteItemListItem : ListItem
         };
     }
 
+    //TODO can move to Extensions
     private static void AddProperty<T>(StringBuilder sb, string name, T value) => sb.Append(CultureInfo.CurrentCulture, $"\r\n| {name} | {value} |");
+}
+
+internal static class OneNoteItemListItemExtensions
+{
+    public static IEnumerable<OneNoteItemListItem> AsListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
+    {
+        return source.Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, icon));
+    }
+
+    public static IEnumerable<IOneNoteItem> FilterItems(this IEnumerable<IOneNoteItem> source, string search)
+    {
+        return ListHelpers.FilterList(source, search, ScoreFunction);
+        static int ScoreFunction(string search, IOneNoteItem item) => StringMatcher.FuzzySearch(search, item.Name).Score;
+    }
 }

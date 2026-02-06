@@ -12,6 +12,13 @@ internal static class EmptyContentHelper
         Icon = Icons.OneNote
     };
 
+    public static CommandItem NotMatchesFoundWithCommands { get; } = new()
+    {
+        Title = NoMatchesFound.Title,
+        Icon = NoMatchesFound.Icon,
+        //MoreCommands = [] //TODO:
+    };
+
     public static CommandItem EmptySearch { get; } = new()
     {
         Title = Resources.SearchPageDefaultEmptyContent,
