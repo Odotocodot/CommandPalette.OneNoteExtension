@@ -1,4 +1,7 @@
-﻿using Microsoft.CommandPalette.Extensions.Toolkit;
+﻿using LinqToOneNote;
+using Microsoft.CommandPalette.Extensions.Toolkit;
+using OneNoteExtension.Commands;
+using OneNoteExtension.Pages;
 using OneNoteExtension.Properties;
 using System;
 
@@ -12,27 +15,41 @@ internal static class EmptyContentHelper
         Icon = Icons.OneNote
     };
 
-    public static CommandItem NotMatchesFoundWithCommands { get; } = new()
+    public static CommandItem GetNotMatchesFoundWithCommands(IOneNoteItem item) => new()
     {
         Title = NoMatchesFound.Title,
         Icon = NoMatchesFound.Icon,
-        //MoreCommands = [] //TODO:
+        Subtitle = Resources.SeeMoreCommands,
+        MoreCommands = [.. PageHelper.GetMoreCommands(item, true)]
+    };
+
+    public static CommandItem GetNotMatchesFoundWithCommands(Root root) => new()
+    {
+        Title = NoMatchesFound.Title,
+        Icon = NoMatchesFound.Icon,
+        Subtitle = Resources.SeeMoreCommands,
+        MoreCommands =
+        [
+            new OpenOneNoteCommand().ToContextItem(),
+            new CreateItemFormPage.Notebook(root).ToContextItem()
+        ]
     };
 
     public static CommandItem EmptySearch { get; } = new()
     {
         Title = Resources.SearchPageDefaultEmptyContent,
         Icon = Icons.OneNote,
+        Subtitle = Resources.SeeMoreCommands,
         MoreCommands =
         [
+            new OpenOneNoteCommand().ToContextItem(),
             TopLevelCommands.RecentPages.ToContextItem(),
             TopLevelCommands.QuickNote.ToContextItem(),
             TopLevelCommands.OneNoteExplorer.ToContextItem(),
         ]
-
     };
 
-    [Obsolete("Remove Not Needed any more")]
+    [Obsolete("Remove not used any more")]
     public static CommandItem NoChildren { get; } = new()
     {
         Title = Resources.OneNoteItemNoChildren,

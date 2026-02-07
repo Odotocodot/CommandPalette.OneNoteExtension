@@ -20,11 +20,11 @@ internal partial class OneNoteExplorerPage : SearchPage
 
     private static readonly SearchParameters _scopeSearch = new(
         (search, page) => OneNoteHelper.FindPages(search, page._item).AsListItems(true, true),
-        (search, page) => page.OnSearchChangedDefault(search, true));
+        (search, page) => page.OnSearchChanged(search, true));
 
     private static readonly SearchParameters _titleSearch = new(
         (search, page) => page._item.Descendants().FilterItems(search).AsListItems(true, true),
-        (search, page) => page.OnSearchChangedDefault(search, false));
+        (search, page) => page.OnSearchChanged(search, false));
 
     private static readonly SearchParameters _childrenSearch = new(
         (search, page) => string.IsNullOrWhiteSpace(search)
@@ -34,7 +34,7 @@ internal partial class OneNoteExplorerPage : SearchPage
         {
             page._searchItems.Clear();
             page.GetMoreItems(search);
-            page.EmptyContent = page._searchItems.Count == 0 ? EmptyContentHelper.NotMatchesFoundWithCommands : null;
+            page.EmptyContent = page._searchItems.Count == 0 ? EmptyContentHelper.GetNotMatchesFoundWithCommands(page._item) : null;
         });
 
     public OneNoteExplorerPage(IOneNoteItem item)

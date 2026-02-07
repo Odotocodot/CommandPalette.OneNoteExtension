@@ -18,18 +18,7 @@ internal partial class OpenOrCreateItemListItem : OneNoteItemListItem
     public OpenOrCreateItemListItem(IOneNoteItem item) : base(item, false, true)
     {
         Title = string.Format(CultureInfo.CurrentCulture, openXInOneNote, item.Name);
-        Subtitle = Resources.OpenOrCreateItemListItemSubtitle;
-        List<IContextItem> moreCommands = [new CommandContextItem(new OpenInOneNoteCommand(item, true))];
-        switch (item)
-        {
-            case INotebookOrSectionGroup notebookOrSectionGroup:
-                moreCommands.Add(new CreateItemFormPage.SectionGroup(notebookOrSectionGroup).ToContextItem());
-                moreCommands.Add(new CreateItemFormPage.Section(notebookOrSectionGroup).ToContextItem());
-                break;
-            case Section section:
-                moreCommands.Add(new CreateItemFormPage.Page(section).ToContextItem());
-                break;
-        }
-        MoreCommands = moreCommands.ToArray();
+        Subtitle = Resources.SeeMoreCommands;
+        MoreCommands = PageHelper.GetMoreCommands(item).ToArray();
     }
 }

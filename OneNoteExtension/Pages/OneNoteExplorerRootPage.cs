@@ -6,13 +6,12 @@ using OneNoteExtension.Properties;
 
 namespace OneNoteExtension.Pages;
 
-internal partial class OneNoteExplorerRootPage : DynamicListPageExt
+internal partial class OneNoteExplorerRootPage : DynamicListPage
 {
     public OneNoteExplorerRootPage()
     {
         Name = Title = Resources.OneNoteExplorer;
         Icon = Icons.OneNoteExplorer;
-        PageLoaded += () => RaiseItemsChanged();
     }
 
     public override IListItem[] GetItems()
@@ -25,6 +24,10 @@ internal partial class OneNoteExplorerRootPage : DynamicListPageExt
             ? [new OpenOneNoteListItem(root), .. notebooks.AsListItems(false, false)]
             : [.. notebooks.FilterItems(SearchText).AsListItems(false, false)];
 
+        if (results.Length == 0)
+        {
+            EmptyContent = EmptyContentHelper.GetNotMatchesFoundWithCommands(root);
+        }
         IsLoading = false;
         return results;
     }
