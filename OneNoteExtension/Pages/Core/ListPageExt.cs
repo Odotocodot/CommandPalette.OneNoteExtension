@@ -5,7 +5,7 @@ using Windows.Foundation;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
-namespace OneNoteExtension.Pages;
+namespace OneNoteExtension.Pages.Core;
 
 // Based on https://github.com/microsoft/PowerToys/blob/87c65f9eec76faf9b1f34b062eeced4ac2e59a18/src/modules/cmdpal/ext/SamplePagesExtension/OnLoadPage.cs 
 // Allows for subscribing when a page is Loaded/Unloaded

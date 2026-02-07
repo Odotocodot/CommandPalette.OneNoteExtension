@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using OneNoteExtension.Pages.Core;
 
 namespace OneNoteExtension.Pages;
 

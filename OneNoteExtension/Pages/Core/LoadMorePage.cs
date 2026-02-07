@@ -1,8 +1,8 @@
-﻿using Microsoft.CommandPalette.Extensions.Toolkit;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CommandPalette.Extensions.Toolkit;
 
-namespace OneNoteExtension.Pages;
+namespace OneNoteExtension.Pages.Core;
 
 internal abstract partial class LoadMorePage : ListPageExt
 {

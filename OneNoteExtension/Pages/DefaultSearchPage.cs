@@ -3,6 +3,7 @@ using OneNoteExtension.Helpers;
 using OneNoteExtension.ListItems;
 using OneNoteExtension.Properties;
 using System.Collections.Generic;
+using OneNoteExtension.Pages.Core;
 
 namespace OneNoteExtension.Pages;
 

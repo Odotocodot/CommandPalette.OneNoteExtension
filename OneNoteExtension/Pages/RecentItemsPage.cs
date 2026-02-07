@@ -5,6 +5,7 @@ using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.ListItems;
+using OneNoteExtension.Pages.Core;
 using OneNoteExtension.Properties;
 
 namespace OneNoteExtension.Pages;

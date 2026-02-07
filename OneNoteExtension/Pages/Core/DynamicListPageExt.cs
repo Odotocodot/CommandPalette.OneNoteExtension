@@ -1,6 +1,6 @@
 ﻿using Microsoft.CommandPalette.Extensions;
 
-namespace OneNoteExtension.Pages
+namespace OneNoteExtension.Pages.Core
 {
     internal abstract partial class DynamicListPageExt : ListPageExt, IDynamicListPage
     {

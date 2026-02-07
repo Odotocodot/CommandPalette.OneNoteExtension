@@ -1,7 +1,7 @@
 ﻿using Microsoft.CommandPalette.Extensions;
 using OneNoteExtension.Helpers;
 
-namespace OneNoteExtension.Pages;
+namespace OneNoteExtension.Pages.Core;
 
 internal abstract partial class SearchPage : LoadMorePage, IDynamicListPage
 {
