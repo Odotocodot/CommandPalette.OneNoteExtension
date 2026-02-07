@@ -12,7 +12,7 @@ using OneNoteExtension.Pages.Core;
 
 namespace OneNoteExtension.Pages;
 
-internal partial class OneNoteExplorerPage : SearchPage
+internal partial class OneNoteExplorerPage : SearchPage, IExternalItemsChanged
 {
     private readonly IOneNoteItem _item;
     private readonly Lock _searchUpdateLock = new();
@@ -29,13 +29,13 @@ internal partial class OneNoteExplorerPage : SearchPage
 
     private static readonly SearchParameters _childrenSearch = new(
         (search, page) => string.IsNullOrWhiteSpace(search)
-            ? page._item.Children.AsListItems(false, false).Prepend(new OpenOrCreateItemListItem(page._item))
+            ? page._item.Children.AsListItems(false, false).Prepend(new OpenOrCreateItemListItem(page, page._item))
             : page._item.Children.FilterItems(search).AsListItems(false, false),
         (search, page) =>
         {
             page._searchItems.Clear();
             page.GetMoreItems(search);
-            page.EmptyContent = page._searchItems.Count == 0 ? EmptyContentHelper.GetNotMatchesFoundWithCommands(page._item) : null;
+            page.EmptyContent = page._searchItems.Count == 0 ? EmptyContentHelper.GetNotMatchesFoundWithCommands(page, page._item) : null;
         });
 
     public OneNoteExplorerPage(IOneNoteItem item)
@@ -79,6 +79,8 @@ internal partial class OneNoteExplorerPage : SearchPage
     }
 
     protected override IEnumerable<ListItem> GetItemsAction(string search) => _searchParameters.GetItemsAction(search, this);
+
+    public void RaiseItemsChangedExternal() => UpdateSearchText(string.Empty, SearchText);
 
     private record SearchParameters(Func<string, OneNoteExplorerPage, IEnumerable<ListItem>> GetItemsAction, Action<string, OneNoteExplorerPage> OnSearchChanged);
 

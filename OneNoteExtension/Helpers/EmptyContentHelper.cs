@@ -2,6 +2,7 @@
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Commands;
 using OneNoteExtension.Pages;
+using OneNoteExtension.Pages.Core;
 using OneNoteExtension.Properties;
 using System;
 
@@ -15,15 +16,15 @@ internal static class EmptyContentHelper
         Icon = Icons.OneNote
     };
 
-    public static CommandItem GetNotMatchesFoundWithCommands(IOneNoteItem item) => new()
+    public static CommandItem GetNotMatchesFoundWithCommands(IExternalItemsChanged listPage, IOneNoteItem item) => new()
     {
         Title = NoMatchesFound.Title,
         Icon = NoMatchesFound.Icon,
         Subtitle = Resources.SeeMoreCommands,
-        MoreCommands = [.. PageHelper.GetMoreCommands(item, true)]
+        MoreCommands = [.. PageHelper.GetMoreCommands(listPage, item, true)]
     };
 
-    public static CommandItem GetNotMatchesFoundWithCommands(Root root) => new()
+    public static CommandItem GetNotMatchesFoundWithCommands(IExternalItemsChanged listPage, Root root) => new()
     {
         Title = NoMatchesFound.Title,
         Icon = NoMatchesFound.Icon,
@@ -31,7 +32,7 @@ internal static class EmptyContentHelper
         MoreCommands =
         [
             new OpenOneNoteCommand().ToContextItem(),
-            new CreateItemFormPage.Notebook(root).ToContextItem()
+            new CreateItemFormPage.Notebook(root, listPage).ToContextItem()
         ]
     };
 

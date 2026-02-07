@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using LinqToOneNote;
+﻿using LinqToOneNote;
 using LinqToOneNote.Abstractions;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
+using OneNoteExtension.Pages.Core;
 using OneNoteExtension.Properties;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
 namespace OneNoteExtension.Pages;
 
@@ -33,56 +35,65 @@ internal partial class CreateItemFormPage : ContentPage
             Resources.CreateQuickNote,
             false,
             null,
+            null,
             OneNoteHelper.CreateQuickNote));
 
-    public partial class Page(LinqToOneNote.Section parent) : CreateItemFormPage(
+    public partial class Page(LinqToOneNote.Section parent, IExternalItemsChanged listPage) : CreateItemFormPage(
         Icons.NewPage,
         new CreateData(
             Resources.CreateOneNotePage,
             false,
             null,
+            listPage,
             (name, content, openMode) => OneNoteHelper.CreatePage(name, content, parent, openMode)));
 
-    public partial class Section(INotebookOrSectionGroup parent) : CreateItemFormPage(
+    public partial class Section(INotebookOrSectionGroup parent, IExternalItemsChanged listPage) : CreateItemFormPage(
         Icons.NewSection,
         new CreateData(
             Resources.CreateOneNoteSection,
             true,
             LinqToOneNote.Section.InvalidCharacters,
+            listPage,
             (name, _, openMode) => OneNoteHelper.CreateSection(name, parent, openMode)));
 
-    public partial class SectionGroup(INotebookOrSectionGroup parent) : CreateItemFormPage(
+    public partial class SectionGroup(INotebookOrSectionGroup parent, IExternalItemsChanged listPage) : CreateItemFormPage(
         Icons.NewSectionGroup,
         new CreateData(
             Resources.CreateOneNoteSectionGroup,
             true,
             LinqToOneNote.SectionGroup.InvalidCharacters,
+            listPage,
             (name, _, openMode) => OneNoteHelper.CreateSectionGroup(name, parent, openMode)));
 
-    public partial class Notebook(Root root) : CreateItemFormPage(
+    public partial class Notebook(Root root, IExternalItemsChanged listPage) : CreateItemFormPage(
         Icons.NewNotebook,
         new CreateData(
             Resources.CreateOneNoteNotebook,
             true,
             LinqToOneNote.SectionGroup.InvalidCharacters,
+            listPage,
             (name, _, openMode) => OneNoteHelper.CreateNotebook(name, root, openMode)));
 
+
     protected delegate void CreateAction(string name, string? content, OpenMode openMode);
-    protected readonly struct CreateData(string title, bool nameRequired, IReadOnlyList<char>? invalidChars, CreateAction createAction)
+    // Could make static and pass in parent as the values only change based on the type.
+    protected readonly struct CreateData(string title, bool nameRequired, IReadOnlyList<char>? invalidChars, IExternalItemsChanged? listPage, CreateAction createAction)
     {
+        private static readonly CompositeFormat nameErrorMessageFormat = CompositeFormat.Parse(Resources.NameCannotContainChars);
+
         public readonly string title = title;
         public readonly string nameRequired = nameRequired.ToString().ToLowerInvariant();
-        public readonly string nameRegex = invalidChars == null ? string.Empty : JsonEncodedText.Encode($@"^(?!\s+$)[^{string.Concat(invalidChars)}]+$").Value;
-#pragma warning disable CA1863
-        public readonly string nameErrorMessage = JsonEncodedText.Encode(string.Format(CultureInfo.CurrentCulture, Resources.NameCannotContainChars, string.Join(" ", invalidChars ?? []))).Value;
-#pragma warning restore CA1863
-        public readonly CreateAction createAction = createAction;
         public readonly string showPageContent = (!nameRequired).ToString().ToLowerInvariant();
+        public readonly string nameRegex = invalidChars == null ? string.Empty : JsonEncodedText.Encode($@"^(?!\s+$)[^{string.Concat(invalidChars)}]+$").Value;
+        public readonly string nameErrorMessage = JsonEncodedText.Encode(string.Format(CultureInfo.CurrentCulture, nameErrorMessageFormat, string.Join(" ", invalidChars ?? []))).Value;
+        public readonly CreateAction createAction = createAction;
+        public readonly IExternalItemsChanged? listPage = listPage;
     }
 
     private partial class CreateItemFormContent : FormContent
     {
         private readonly CreateData _createData;
+        private static readonly CompositeFormat toastMessageFormat = CompositeFormat.Parse(Resources.CreatedNewItemInOneNote);
         public CreateItemFormContent(in CreateData createData)
         {
             _createData = createData;
@@ -173,20 +184,19 @@ internal partial class CreateItemFormPage : ContentPage
             var content = formInput["content"]?.ToString();
             _ = bool.TryParse(formData["openOneNote"]?.ToString(), out var showOneNote);
 
-            _ = Task.Run(() => _createData.createAction(name ?? string.Empty, content, showOneNote ? OpenMode.ExistingOrNewWindow : OpenMode.None));
-
-            if (showOneNote)
+            _ = Task.Run(() =>
             {
-                return CommandResult.Dismiss();
-            }
-
-            return CommandResult.ShowToast(new ToastArgs
-            {
-#pragma warning disable CA1863
-                Message = string.Format(CultureInfo.CurrentCulture, Resources.CreatedNewItemInOneNote, name),
-#pragma warning restore CA1863
-                Result = CommandResult.GoBack()
+                _createData.createAction(name ?? string.Empty, content, showOneNote ? OpenMode.ExistingOrNewWindow : OpenMode.None);
+                _createData.listPage?.RaiseItemsChangedExternal();
             });
+
+            return showOneNote
+                ? CommandResult.Dismiss()
+                : CommandResult.ShowToast(new ToastArgs
+                {
+                    Message = string.Format(CultureInfo.CurrentCulture, toastMessageFormat, name),
+                    Result = CommandResult.GoBack()
+                });
         }
     }
 }
