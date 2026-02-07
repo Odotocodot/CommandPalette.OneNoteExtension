@@ -15,7 +15,7 @@ internal abstract partial class SearchPage : LoadMorePage, IDynamicListPage
         }
     }
 
-    protected void OnSearchChangedDefault(string search, bool invalidCharCheck)
+    protected void OnSearchChanged(string search, bool invalidCharCheck)
     {
         _searchItems.Clear();
         if (string.IsNullOrWhiteSpace(search))

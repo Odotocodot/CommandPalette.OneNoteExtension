@@ -20,7 +20,7 @@ internal sealed partial class DefaultSearchPage : SearchPage
 
     public override void UpdateSearchText(string oldSearch, string newSearch)
     {
-        OnSearchChangedDefault(newSearch, true);
+        OnSearchChanged(newSearch, true);
         RaiseItemsChanged();
     }
 

@@ -46,7 +46,7 @@ internal partial class OneNoteExplorerPage : SearchPage
             filters.PropChanged += Filters_PropChanged;
             Filters = filters;
         }
-        var relativePath = OneNoteHelper.GetSubtitle(item, true);
+        var relativePath = PageHelper.GetSubtitle(item, true);
         Title = item is Notebook notebook
             ? $"{Resources.OneNoteExplorer} | {notebook.DisplayName}"
             : $"{Resources.OneNoteExplorer} | {relativePath}";
