@@ -220,10 +220,13 @@
   <data name="OpenXInOneNote" xml:space="preserve">
     <value>Open "{0}" in OneNote</value>
   </data>
-  <data name="OpenOrCreateItemListItemSubtitle" xml:space="preserve">
-    <value>See more commands for additional options</value>
+  <data name="SeeMoreCommands" xml:space="preserve">
+    <value>See "More" for additional commands</value>
   </data>
   <data name="OpenOneNote" xml:space="preserve">
     <value>Open OneNote</value>
+  </data>
+  <data name="OrCreateNotebook" xml:space="preserve">
+    <value>Or create a notebook</value>
   </data>
 </root>

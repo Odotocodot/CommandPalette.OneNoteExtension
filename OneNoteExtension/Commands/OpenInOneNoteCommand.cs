@@ -5,7 +5,7 @@ using OneNoteExtension.Helpers;
 using OneNoteExtension.Properties;
 namespace OneNoteExtension.Commands;
 
-internal partial class OpenInOneNoteCommand : InvokableCommand
+internal sealed partial class OpenInOneNoteCommand : InvokableCommand
 {
     private readonly IOneNoteItem _item;
     private readonly bool _newWindow;

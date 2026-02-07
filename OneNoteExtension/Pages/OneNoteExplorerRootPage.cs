@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
@@ -20,19 +19,18 @@ internal partial class OneNoteExplorerRootPage : DynamicListPage
         IsLoading = true;
 
         var root = OneNoteHelper.GetFullHierarchy();
-        var notebooks = root.Notebooks.Select(n => new OneNoteItemListItem(n, false));
-        IsLoading = false;
+        var notebooks = root.Notebooks;
+        ListItem[] results = string.IsNullOrWhiteSpace(SearchText)
+            ? [new OpenOneNoteListItem(root), .. notebooks.AsListItems(false, false)]
+            : [.. notebooks.FilterItems(SearchText).AsListItems(false, false)];
 
-        return string.IsNullOrWhiteSpace(SearchText)
-            ? [new OpenOneNoteListItem(root), .. notebooks]
-            : [.. ListHelpers.FilterList(notebooks, SearchText, ListHelpers.ScoreListItem)];
-    }
-
-    public override void UpdateSearchText(string oldSearch, string newSearch)
-    {
-        if(newSearch != oldSearch)
+        if (results.Length == 0)
         {
-            RaiseItemsChanged();
+            EmptyContent = EmptyContentHelper.GetNotMatchesFoundWithCommands(root);
         }
+        IsLoading = false;
+        return results;
     }
+
+    public override void UpdateSearchText(string oldSearch, string newSearch) => RaiseItemsChanged();
 }

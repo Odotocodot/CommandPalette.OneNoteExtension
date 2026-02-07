@@ -36,7 +36,7 @@ internal static class OneNoteHelper
     {
         if (!disposedValue)
         {
-            if(comObjectTimeout.IsValueCreated)
+            if (comObjectTimeout.IsValueCreated)
             {
                 comObjectTimeout.Value.Dispose();
             }
@@ -45,6 +45,12 @@ internal static class OneNoteHelper
         }
     }
     #endregion
+
+    public static void InitComObject()
+    {
+        ResetTimeout();
+        OneNote.InitComObject();
+    }
 
     public static void OpenInOneNote(string itemId, bool newWindow)
     {
@@ -121,21 +127,12 @@ internal static class OneNoteHelper
     public static void CreateSectionGroup(string name, INotebookOrSectionGroup parent, OpenMode openMode)
     {
         ResetTimeout();
-		OneNote.CreateSectionGroup(parent, name, openMode);
+        OneNote.CreateSectionGroup(parent, name, openMode);
     }
 
     public static void CreateNotebook(string name, Root root, OpenMode openMode)
     {
-	    ResetTimeout();
-	    root.CreateNotebook(name, openMode);
-    }
-
-    public static string GetSubtitle(IOneNoteItem item, bool includeSelf)
-    {
-        const string separator = " > ";
-        var path = item.GetRelativePath(false, separator);
-        return includeSelf
-            ? path
-            : path[..^(item.Name.Length + separator.Length)];
+        ResetTimeout();
+        root.CreateNotebook(name, openMode);
     }
 }

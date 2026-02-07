@@ -276,20 +276,20 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See more commands for additional options.
-        /// </summary>
-        internal static string OpenOrCreateItemListItemSubtitle {
-            get {
-                return ResourceManager.GetString("OpenOrCreateItemListItemSubtitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Open &quot;{0}&quot; in OneNote.
         /// </summary>
         internal static string OpenXInOneNote {
             get {
                 return ResourceManager.GetString("OpenXInOneNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Or create a notebook.
+        /// </summary>
+        internal static string OrCreateNotebook {
+            get {
+                return ResourceManager.GetString("OrCreateNotebook", resourceCulture);
             }
         }
         
@@ -344,6 +344,15 @@ namespace OneNoteExtension.Properties {
         internal static string Sections {
             get {
                 return ResourceManager.GetString("Sections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See &quot;More&quot; for additional commands.
+        /// </summary>
+        internal static string SeeMoreCommands {
+            get {
+                return ResourceManager.GetString("SeeMoreCommands", resourceCulture);
             }
         }
         

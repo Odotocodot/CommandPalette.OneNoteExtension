@@ -7,6 +7,7 @@ using OneNoteExtension.Pages;
 using OneNoteExtension.Properties;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +15,7 @@ namespace OneNoteExtension.ListItems;
 
 internal partial class OneNoteItemListItem : ListItem
 {
-    //commandIsOpen -> open in this context means open in oneNote
-    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpen = false) : this(item, Icons.GetIcon(item), addSubtitle, commandIsOpen) {  }
-    public OneNoteItemListItem(IOneNoteItem item, IconInfo icon, bool addSubtitle, bool commandIsOpen = false)
+    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpenInOneNote, IconInfo? icon = null)
     {
         //Tags
         var tags = new List<Tag>();
@@ -75,12 +74,12 @@ internal partial class OneNoteItemListItem : ListItem
         //Subtitle
         if (addSubtitle)
         {
-            Task.Run(() => Subtitle = OneNoteHelper.GetSubtitle(item, false));
+            Task.Run(() => Subtitle = PageHelper.GetSubtitle(item, false));
         }
 
         //Command 
-        Command? command = null;
-        if (commandIsOpen || page != null || section is { Encrypted: true, Locked: true })
+        Command command;
+        if (commandIsOpenInOneNote || page != null || section is { Encrypted: true, Locked: true })
         {
             command = new OpenInOneNoteCommand(item);
         }
@@ -109,7 +108,7 @@ internal partial class OneNoteItemListItem : ListItem
 
         Title = item is Notebook notebook ? notebook.DisplayName : item.Name;
         Command = command;
-        Icon = icon;
+        Icon = icon ?? Icons.GetIcon(item);
         Tags = tags.ToArray();
         Details = new Details
         {
@@ -118,6 +117,5 @@ internal partial class OneNoteItemListItem : ListItem
             Metadata = metadata.ToArray(),
         };
     }
-
     private static void AddProperty<T>(StringBuilder sb, string name, T value) => sb.Append(CultureInfo.CurrentCulture, $"\r\n| {name} | {value} |");
 }
