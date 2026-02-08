@@ -16,7 +16,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<Content Include="Assets\*" />
+		<Content Include="Assets\**\*" />
 	</ItemGroup>
 
 	<ItemGroup>
