@@ -1,9 +1,8 @@
+using System.Collections.Generic;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
-using OneNoteExtension.ListItems;
-using OneNoteExtension.Properties;
-using System.Collections.Generic;
 using OneNoteExtension.Pages.Core;
+using OneNoteExtension.Properties;
 
 namespace OneNoteExtension.Pages;
 
@@ -12,7 +11,7 @@ internal sealed partial class DefaultSearchPage : SearchPage
     public DefaultSearchPage()
     {
         Name = Title = Resources.SearchOneNotePages;
-        Icon = Icons.Search;
+        Icon = Icons.SearchPages;
         EmptyContent = EmptyContentHelper.EmptySearch;
         HasMoreItems = true;
         PageLoaded += OneNoteHelper.InitComObject;

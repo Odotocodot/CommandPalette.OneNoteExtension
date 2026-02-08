@@ -13,7 +13,7 @@ public partial class CommandsProvider : CommandProvider
     public CommandsProvider()
     {
         DisplayName = Resources.DisplayName;
-        Icon = Icons.OneNote;
+        Icon = Icons.Logo;
         _commands = [
             ToCommandItem(Helpers.TopLevelCommands.DefaultSearch),
             ToCommandItem(Helpers.TopLevelCommands.RecentPages),
