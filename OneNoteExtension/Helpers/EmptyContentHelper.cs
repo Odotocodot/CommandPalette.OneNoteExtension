@@ -13,7 +13,7 @@ internal static class EmptyContentHelper
     public static CommandItem NoMatchesFound { get; } = new()
     {
         Title = Resources.NoMatchesFound,
-        Icon = Icons.OneNote
+        Icon = Icons.Logo
     };
 
     public static CommandItem GetNotMatchesFoundWithCommands(IExternalItemsChanged listPage, IOneNoteItem item) => new()
@@ -39,7 +39,7 @@ internal static class EmptyContentHelper
     public static CommandItem EmptySearch { get; } = new()
     {
         Title = Resources.SearchPageDefaultEmptyContent,
-        Icon = Icons.OneNote,
+        Icon = Icons.Logo,
         Subtitle = Resources.SeeMoreCommands,
         MoreCommands =
         [
@@ -54,7 +54,7 @@ internal static class EmptyContentHelper
     public static CommandItem NoChildren { get; } = new()
     {
         Title = Resources.OneNoteItemNoChildren,
-        Icon = Icons.OneNote,
+        Icon = Icons.Logo,
     };
     public static CommandItem InvalidSearch { get; } = new()
     {
