@@ -232,4 +232,7 @@
   <data name="Settings_CombineTopLevelCommands" xml:space="preserve">
     <value>Combine top level commands into one</value>
   </data>
+  <data name="Settings_ShowRecycleBinEntries" xml:space="preserve">
+    <value>Show recycle bin items when using the OneNote Explorer or viewing recent pages</value>
+  </data>
 </root>

@@ -26,7 +26,8 @@ internal static class PageHelper
 
     public static IEnumerable<OneNoteItemListItem> AsListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
     {
-        return source.Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, icon));
+        return source.Where(item => SettingsManager.Instance.ShowRecycleBinEntries || !item.IsInRecycleBin())
+                     .Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, icon));
     }
 
     public static IEnumerable<IOneNoteItem> FilterItems(this IEnumerable<IOneNoteItem> source, string search)

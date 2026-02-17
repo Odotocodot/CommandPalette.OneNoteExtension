@@ -1,4 +1,7 @@
+using System;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Properties;
 
@@ -7,17 +10,30 @@ namespace OneNoteExtension;
 internal sealed class SettingsManager : JsonSettingsManager
 {
     private const string _namespace = "onenote";
-    private static string Namespaced(string propertyName) => $"{_namespace}.{propertyName}";
-
-    public bool CombineTopLevelCommands => _combineTopLevelCommands.Value;
+    private static readonly Lazy<SettingsManager> instance = new(() => new SettingsManager(), LazyThreadSafetyMode.ExecutionAndPublication);
 
     private readonly ToggleSetting _combineTopLevelCommands = new
     (
-        Namespaced(nameof(CombineTopLevelCommands)),
+        GetKey(),
         Resources.Settings_CombineTopLevelCommands,
         string.Empty,
         false
     );
+
+    private readonly ToggleSetting _showRecycleBinEntries = new
+    (
+        GetKey(),
+        Resources.Settings_ShowRecycleBinEntries,
+        string.Empty,
+        true
+    );
+
+    public static SettingsManager Instance => instance.Value;
+
+    public bool CombineTopLevelCommands => _combineTopLevelCommands.Value;
+    public bool ShowRecycleBinEntries => _showRecycleBinEntries.Value;
+
+    private static string GetKey([CallerMemberName] string propertyName = "") => $"{_namespace}.{propertyName.TrimStart('_')}";
 
     private static string SettingsJsonPath()
     {
@@ -31,6 +47,7 @@ internal sealed class SettingsManager : JsonSettingsManager
         FilePath = SettingsJsonPath();
 
         Settings.Add(_combineTopLevelCommands);
+        Settings.Add(_showRecycleBinEntries);
 
         LoadSettings();
 

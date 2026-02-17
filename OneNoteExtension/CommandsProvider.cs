@@ -12,7 +12,7 @@ public partial class CommandsProvider : CommandProvider
 {
     private readonly ICommandItem[] _topLevelCommands;
     private readonly ICommandItem[] _homePage;
-    private readonly SettingsManager _settingsManager = new();
+    private readonly SettingsManager _settingsManager = SettingsManager.Instance;
 
     public CommandsProvider()
     {

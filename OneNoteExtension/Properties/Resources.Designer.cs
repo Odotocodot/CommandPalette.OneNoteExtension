@@ -367,6 +367,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show recycle bin items when using the OneNote Explorer or viewing recent pages.
+        /// </summary>
+        internal static string Settings_ShowRecycleBinEntries {
+            get {
+                return ResourceManager.GetString("Settings_ShowRecycleBinEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Titles.
         /// </summary>
         internal static string Titles {
