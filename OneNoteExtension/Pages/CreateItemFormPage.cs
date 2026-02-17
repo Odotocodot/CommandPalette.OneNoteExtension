@@ -29,14 +29,13 @@ internal partial class CreateItemFormPage : ContentPage
 
     public override IContent[] GetContent() => [_form];
 
-    public partial class QuickNote() : CreateItemFormPage(
-        Icons.NewPage,
-        new CreateData(
-            Resources.CreateQuickNote,
-            false,
-            null,
-            null,
-            OneNoteHelper.CreateQuickNote));
+    public partial class QuickNote : CreateItemFormPage
+    {
+        public QuickNote() : base(Icons.NewPage, new CreateData(Resources.CreateQuickNote, false, null, null, OneNoteHelper.CreateQuickNote))
+        {
+            Name = Title = Resources.CreateQuickNote;
+        }
+    }
 
     public partial class Page(LinqToOneNote.Section parent, IExternalItemsChanged listPage) : CreateItemFormPage(
         Icons.NewPage,

@@ -151,7 +151,7 @@
     <value>Search OneNote pages</value>
   </data>
   <data name="ViewRecentOneNotePages" xml:space="preserve">
-    <value>View Recent OneNote Pages</value>
+    <value>View recent OneNote pages</value>
   </data>
   <data name="OneNoteExplorer" xml:space="preserve">
     <value>OneNote Explorer</value>
@@ -228,5 +228,8 @@
   </data>
   <data name="OrCreateNotebook" xml:space="preserve">
     <value>Or create a notebook</value>
+  </data>
+  <data name="Settings_CombineTopLevelCommands" xml:space="preserve">
+    <value>Combine top level commands into one</value>
   </data>
 </root>

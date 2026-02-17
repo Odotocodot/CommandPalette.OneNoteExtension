@@ -14,16 +14,15 @@ namespace OneNoteExtension.Helpers;
 
 internal static class PageHelper
 {
-    public static CommandContextItem ToContextItem(this Page page, string subtitle = "")
+    public static CommandContextItem ToContextItem(this Page page, IContextItem[]? moreCommands = null)
     {
         page.Name = page.Title;
-        return new CommandContextItem(page) { Subtitle = subtitle };
+        return moreCommands != null
+            ? new CommandContextItem(page) { MoreCommands = moreCommands }
+            : new CommandContextItem(page);
     }
 
-    public static CommandContextItem ToContextItem(this Command command, string subtitle = "")
-    {
-        return new CommandContextItem(command) { Subtitle = subtitle };
-    }
+    public static CommandContextItem ToContextItem(this ICommand command) => new(command);
 
     public static IEnumerable<OneNoteItemListItem> AsListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
     {

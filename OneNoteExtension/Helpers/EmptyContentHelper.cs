@@ -5,6 +5,7 @@ using OneNoteExtension.Pages;
 using OneNoteExtension.Pages.Core;
 using OneNoteExtension.Properties;
 using System;
+using System.Linq;
 
 namespace OneNoteExtension.Helpers;
 
@@ -44,9 +45,7 @@ internal static class EmptyContentHelper
         MoreCommands =
         [
             new OpenOneNoteCommand().ToContextItem(),
-            TopLevelCommands.RecentPages.ToContextItem(),
-            TopLevelCommands.QuickNote.ToContextItem(),
-            TopLevelCommands.OneNoteExplorer.ToContextItem(),
+            ..TopLevelCommands.Commands.Skip(1).Select(p => p.ToContextItem()),
         ]
     };
 
