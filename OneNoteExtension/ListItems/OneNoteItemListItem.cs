@@ -7,7 +7,6 @@ using OneNoteExtension.Pages;
 using OneNoteExtension.Properties;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,7 +43,7 @@ internal partial class OneNoteItemListItem : ListItem
         }
 
         //Details Body
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.Append("""
             |     |     |
             | :-- | --: |
@@ -57,7 +56,7 @@ internal partial class OneNoteItemListItem : ListItem
         }
         AddProperty(sb, Resources.LastModified, item.LastModified);
 
-        if(page == null)
+        if (page == null)
         {
             if (item is INotebookOrSectionGroup notebookOrSectionGroup)
             {
@@ -91,7 +90,7 @@ internal partial class OneNoteItemListItem : ListItem
         //Details Metadata
         var metadata = new List<DetailsElement>
         {
-            new DetailsElement
+            new()
             {
                 Key = Resources.Commands,
                 Data = new DetailsCommands { Commands = OpenInOneNoteCommand.GetAll(item) }
@@ -101,7 +100,7 @@ internal partial class OneNoteItemListItem : ListItem
         {
             metadata.Insert(0, new DetailsElement
             {
-                Key = Resources.Hyperlink,
+                Key = Resources.Path,
                 Data = new DetailsLink(hasPath.Path)
             });
         }

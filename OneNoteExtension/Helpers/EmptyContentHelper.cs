@@ -4,7 +4,6 @@ using OneNoteExtension.Commands;
 using OneNoteExtension.Pages;
 using OneNoteExtension.Pages.Core;
 using OneNoteExtension.Properties;
-using System;
 using System.Linq;
 
 namespace OneNoteExtension.Helpers;
@@ -49,12 +48,6 @@ internal static class EmptyContentHelper
         ]
     };
 
-    [Obsolete("Remove not used any more")]
-    public static CommandItem NoChildren { get; } = new()
-    {
-        Title = Resources.OneNoteItemNoChildren,
-        Icon = Icons.Logo,
-    };
     public static CommandItem InvalidSearch { get; } = new()
     {
         Title = Resources.InvalidSearch,

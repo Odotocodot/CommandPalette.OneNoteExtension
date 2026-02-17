@@ -178,15 +178,6 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Link.
-        /// </summary>
-        internal static string Hyperlink {
-            get {
-                return ResourceManager.GetString("Hyperlink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Searches must start with a letter or a digit.
         /// </summary>
         internal static string InvalidSearch {
@@ -237,15 +228,6 @@ namespace OneNoteExtension.Properties {
         internal static string OneNoteExplorer {
             get {
                 return ResourceManager.GetString("OneNoteExplorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This OneNote item is empty.
-        /// </summary>
-        internal static string OneNoteItemNoChildren {
-            get {
-                return ResourceManager.GetString("OneNoteItemNoChildren", resourceCulture);
             }
         }
         
@@ -313,6 +295,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        internal static string Path {
+            get {
+                return ResourceManager.GetString("Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search OneNote pages.
         /// </summary>
         internal static string SearchOneNotePages {
@@ -367,7 +358,7 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show recycle bin items when using the OneNote Explorer or viewing recent pages.
+        ///   Looks up a localized string similar to Show recycle bin items.
         /// </summary>
         internal static string Settings_ShowRecycleBinEntries {
             get {

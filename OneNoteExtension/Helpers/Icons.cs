@@ -11,9 +11,9 @@ internal static class Icons
 {
     private const string _path = "Assets\\Icons";
     public static IconInfo Logo { get; } = IconHelpers.FromRelativePath($"{_path}\\logo.svg");
-    public static IconInfo OneNote => IconHelpers.FromRelativePath($"{_path}\\onenote.svg");
-    public static IconInfo Invalid => IconHelpers.FromRelativePath($"{_path}\\warning.light.svg");
-    public static IconInfo Open { get; } = new ("\ue8a7"); //OpenInNewWindow
+    public static IconInfo OneNote { get; } = IconHelpers.FromRelativePath($"{_path}\\onenote.svg");
+    public static IconInfo Invalid { get; } = IconHelpers.FromRelativePath($"{_path}\\warning.light.svg");
+    public static IconInfo Open { get; } = new("\ue8a7"); //OpenInNewWindow
     public static IconInfo RecentPage { get; } = FromAssetName("page_recent");
     public static IconInfo OneNoteExplorer { get; } = FromAssetName("notebook_explorer");
     public static IconInfo Page { get; } = FromAssetName("page");
@@ -22,10 +22,10 @@ internal static class Icons
     public static IconInfo NewSection { get; } = FromAssetName("section_new");
     public static IconInfo NewSectionGroup { get; } = FromAssetName("section_group_new");
     public static IconInfo NewNotebook { get; } = FromAssetName("notebook_new");
-    public static IconInfo UnreadChanges { get; } = new("\ue70f");
-    public static IconInfo Locked { get; } = new("\ue72e");
-    public static IconInfo Unlocked { get; } = new("\ue785");
-    public static IconInfo Title { get; } = new("\uf714");
+    public static IconInfo UnreadChanges { get; } = new("\ue70f"); //Edit
+    public static IconInfo Locked { get; } = new("\ue72e"); //Lock
+    public static IconInfo Unlocked { get; } = new("\ue785"); //Unlock
+    public static IconInfo Title { get; } = new("\uf714"); //RTTLogo
     public static IconInfo SearchPages { get; } = FromAssetName("page_search");
 
     private static IconInfo FromAssetName(string assetName) => IconHelpers.FromRelativePath($"{_path}\\{assetName}.color.svg");

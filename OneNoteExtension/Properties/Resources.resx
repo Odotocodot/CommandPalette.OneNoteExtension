@@ -157,9 +157,6 @@
     <value>OneNote Explorer</value>
     <comment>File explorer but for OneNote</comment>
   </data>
-  <data name="OneNoteItemNoChildren" xml:space="preserve">
-    <value>This OneNote item is empty</value>
-  </data>
   <data name="DefaultFilter" xml:space="preserve">
     <value>Default</value>
     <comment>Standard/Normal</comment>
@@ -167,8 +164,8 @@
   <data name="Pages" xml:space="preserve">
     <value>Pages</value>
   </data>
-  <data name="Hyperlink" xml:space="preserve">
-    <value>Link</value>
+  <data name="Path" xml:space="preserve">
+    <value>Path</value>
   </data>
   <data name="Sections" xml:space="preserve">
     <value>Sections</value>
@@ -233,6 +230,6 @@
     <value>Combine top level commands into one</value>
   </data>
   <data name="Settings_ShowRecycleBinEntries" xml:space="preserve">
-    <value>Show recycle bin items when using the OneNote Explorer or viewing recent pages</value>
+    <value>Show recycle bin items</value>
   </data>
 </root>
