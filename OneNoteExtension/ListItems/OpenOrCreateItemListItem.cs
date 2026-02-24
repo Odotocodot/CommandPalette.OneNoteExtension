@@ -14,6 +14,6 @@ internal sealed partial class OpenOrCreateItemListItem : OneNoteItemListItem
     {
         Title = string.Format(CultureInfo.CurrentCulture, openXInOneNote, item.Name);
         Subtitle = Resources.SeeMoreCommands;
-        MoreCommands = PageHelper.GetMoreCommands(listPage, item).ToArray();
+        MoreCommands = PageHelper.GetMoreCommands(item, listPage).ToContextItems();
     }
 }

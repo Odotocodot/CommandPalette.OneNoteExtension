@@ -27,6 +27,7 @@ internal static class Icons
     public static IconInfo Unlocked { get; } = new("\ue785"); //Unlock
     public static IconInfo Title { get; } = new("\uf714"); //RTTLogo
     public static IconInfo SearchPages { get; } = FromAssetName("page_search");
+    public static IconInfo Copy { get; } = new("\ue8c8"); //Copy
 
     private static IconInfo FromAssetName(string assetName) => IconHelpers.FromRelativePath($"{_path}\\{assetName}.color.svg");
 

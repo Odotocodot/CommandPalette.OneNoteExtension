@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
@@ -23,7 +22,7 @@ public partial class CommandsProvider : CommandProvider
         _settingsManager.Settings.SettingsChanged += OnSettingsChanged;
         IContextItem[] moreCommands = [_settingsManager.Settings.SettingsPage.ToContextItem()];
         _homePage = [new HomePage().ToContextItem(moreCommands)];
-        _topLevelCommands = Helpers.TopLevelCommands.Commands.Select(page => page.ToContextItem(moreCommands)).ToArray();
+        _topLevelCommands = Helpers.TopLevelCommands.Commands.ToContextItems(moreCommands);
     }
 
     private void OnSettingsChanged(object sender, Settings args) => RaiseItemsChanged();

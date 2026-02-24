@@ -1,4 +1,4 @@
-using System.Linq;
+using System;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Helpers;
@@ -14,5 +14,5 @@ internal sealed partial class HomePage : ListPage
         Icon = Icons.Logo;
     }
 
-    public override IListItem[] GetItems() => TopLevelCommands.Commands.Select(p => new ListItem(p)).ToArray();
+    public override IListItem[] GetItems() => Array.ConvertAll(TopLevelCommands.Commands,static p => new ListItem(p));
 }

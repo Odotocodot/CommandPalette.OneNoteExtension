@@ -23,7 +23,7 @@ internal partial class OneNoteItemListItem : ListItem
             tags.Add(new Tag
             {
                 Icon = Icons.UnreadChanges,
-                ToolTip = Resources.Unread
+                ToolTip = Resources.UnreadToolTip
             });
         }
         if (item.IsInRecycleBin())
@@ -31,21 +31,22 @@ internal partial class OneNoteItemListItem : ListItem
             tags.Add(new Tag
             {
                 Icon = Icons.RecycleBin,
+                ToolTip = Resources.RecycleBinToolTip
             });
         }
         var section = item as Section;
         if (section?.Encrypted == true)
         {
-            tags.Add(new Tag
-            {
-                Icon = section.Locked ? Icons.Locked : Icons.Unlocked,
-            });
+            tags.Add(section.Locked
+                ? new Tag { Icon = Icons.Locked, ToolTip = Resources.LockedToolTip }
+                : new Tag { Icon = Icons.Unlocked, ToolTip = Resources.UnlockedToolTip }
+                );
         }
 
         //Details Body
         var sb = new StringBuilder();
-        sb.Append("""
-            |     |     |
+        sb.Append(CultureInfo.CurrentCulture, $"""
+            | {Resources.Property} | {Resources.Value} |
             | :-- | --: |
             """);
 
@@ -93,15 +94,23 @@ internal partial class OneNoteItemListItem : ListItem
             new()
             {
                 Key = Resources.Commands,
-                Data = new DetailsCommands { Commands = OpenInOneNoteCommand.GetAll(item) }
+                Data = new DetailsCommands { Commands = PageHelper.GetMoreCommands(item, null, true) }
             }
         };
         if (item is IHasPath hasPath)
         {
-            metadata.Insert(0, new DetailsElement
+            metadata.Insert(0, new()
             {
                 Key = Resources.Path,
                 Data = new DetailsLink(hasPath.Path)
+            });
+        }
+        if (tags.Count > 0)
+        {
+            metadata.Add(new()
+            {
+                Key = Resources.Tags,
+                Data = new DetailsTags { Tags = tags.ToArray() }
             });
         }
 
@@ -109,6 +118,7 @@ internal partial class OneNoteItemListItem : ListItem
         Command = command;
         Icon = icon ?? Icons.GetIcon(item);
         Tags = tags.ToArray();
+        MoreCommands = PageHelper.GetMoreCommands(item, null, page == null).ToContextItems();
         Details = new Details
         {
             Title = item.Name,

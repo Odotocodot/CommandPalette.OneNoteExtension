@@ -6,6 +6,7 @@ using OneNoteExtension.Commands;
 using OneNoteExtension.ListItems;
 using OneNoteExtension.Pages;
 using OneNoteExtension.Pages.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Page = Microsoft.CommandPalette.Extensions.Toolkit.Page;
@@ -14,15 +15,19 @@ namespace OneNoteExtension.Helpers;
 
 internal static class PageHelper
 {
-    public static CommandContextItem ToContextItem(this Page page, IContextItem[]? moreCommands = null)
+    public static CommandContextItem ToContextItem(this ICommand command, IContextItem[]? moreCommands = null)
     {
-        page.Name = page.Title;
-        return moreCommands != null
-            ? new CommandContextItem(page) { MoreCommands = moreCommands }
-            : new CommandContextItem(page);
+        if(command is Page page)
+        {
+            page.Name = page.Title;
+        }
+        return new CommandContextItem(command) { MoreCommands = moreCommands ?? [] };
     }
 
-    public static CommandContextItem ToContextItem(this ICommand command) => new(command);
+    public static CommandContextItem[] ToContextItems(this ICommand[] commands, IContextItem[]? moreCommands = null)
+    {
+        return Array.ConvertAll(commands, c => c.ToContextItem(moreCommands));
+    }
 
     public static IEnumerable<OneNoteItemListItem> AsListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
     {
@@ -36,26 +41,30 @@ internal static class PageHelper
         static int ScoreFunction(string search, IOneNoteItem item) => StringMatcher.FuzzySearch(search, item.Name).Score;
     }
 
-    public static List<IContextItem> GetMoreCommands(IExternalItemsChanged listPage, IOneNoteItem item, bool includeDefault = false)
+    public static ICommand[] GetMoreCommands(IOneNoteItem item, IExternalItemsChanged? listPage, bool includeDefault = false)
     {
-        var moreCommands = new List<IContextItem>();
+        var moreCommands = new List<ICommand>();
         if (includeDefault)
         {
-            moreCommands.Add(new OpenInOneNoteCommand(item, false).ToContextItem());
+            moreCommands.Add(new OpenInOneNoteCommand(item, false));
         }
-        moreCommands.Add(new OpenInOneNoteCommand(item, true).ToContextItem());
-        switch (item)
+        moreCommands.Add(new OpenInOneNoteCommand(item, true));
+        if (listPage != null)
         {
-            case INotebookOrSectionGroup notebookOrSectionGroup:
-                moreCommands.Add(new CreateItemFormPage.SectionGroup(notebookOrSectionGroup, listPage).ToContextItem());
-                moreCommands.Add(new CreateItemFormPage.Section(notebookOrSectionGroup, listPage).ToContextItem());
-                break;
-            case Section section:
-                moreCommands.Add(new CreateItemFormPage.Page(section, listPage).ToContextItem());
-                break;
+            switch (item)
+            {
+                case INotebookOrSectionGroup notebookOrSectionGroup:
+                    moreCommands.Add(new CreateItemFormPage.SectionGroup(notebookOrSectionGroup, listPage));
+                    moreCommands.Add(new CreateItemFormPage.Section(notebookOrSectionGroup, listPage));
+                    break;
+                case Section section:
+                    moreCommands.Add(new CreateItemFormPage.Page(section, listPage));
+                    break;
+            }
         }
+        moreCommands.Add(new CopyLinkToClipboardCommand(item));
 
-        return moreCommands;
+        return moreCommands.ToArray();
     }
 
     public static string GetSubtitle(IOneNoteItem item, bool includeSelf)

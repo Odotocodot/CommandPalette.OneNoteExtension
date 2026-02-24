@@ -70,6 +70,24 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copied link to clipboard.
+        /// </summary>
+        internal static string CopiedLinkToClipboard {
+            get {
+                return ResourceManager.GetString("CopiedLinkToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy link to clipboard.
+        /// </summary>
+        internal static string CopyLinkToClipboard {
+            get {
+                return ResourceManager.GetString("CopyLinkToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         internal static string Create {
@@ -196,6 +214,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This section is locked.
+        /// </summary>
+        internal static string LockedToolTip {
+            get {
+                return ResourceManager.GetString("LockedToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
@@ -304,6 +331,24 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property.
+        /// </summary>
+        internal static string Property {
+            get {
+                return ResourceManager.GetString("Property", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This item is in a recycle bin.
+        /// </summary>
+        internal static string RecycleBinToolTip {
+            get {
+                return ResourceManager.GetString("RecycleBinToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search OneNote pages.
         /// </summary>
         internal static string SearchOneNotePages {
@@ -367,6 +412,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        internal static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Titles.
         /// </summary>
         internal static string Titles {
@@ -376,11 +430,29 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This section is unlocked.
+        /// </summary>
+        internal static string UnlockedToolTip {
+            get {
+                return ResourceManager.GetString("UnlockedToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This item has unread changes.
         /// </summary>
-        internal static string Unread {
+        internal static string UnreadToolTip {
             get {
-                return ResourceManager.GetString("Unread", resourceCulture);
+                return ResourceManager.GetString("UnreadToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        internal static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
         

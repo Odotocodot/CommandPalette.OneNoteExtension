@@ -135,4 +135,12 @@ internal static class OneNoteHelper
         ResetTimeout();
         root.CreateNotebook(name, openMode);
     }
+
+    internal static string GetHyperlink(IOneNoteItem item)
+    {
+        ResetTimeout();
+        OneNote.InitComObject();
+        OneNote.ComObject.GetHyperlinkToObject(item.Id, string.Empty, out var hyperlink);
+        return hyperlink;
+    }
 }

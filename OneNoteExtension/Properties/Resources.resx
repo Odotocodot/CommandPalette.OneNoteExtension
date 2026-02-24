@@ -132,7 +132,7 @@
   <data name="NoMatchesFound" xml:space="preserve">
     <value>No matches found</value>
   </data>
-  <data name="Unread" xml:space="preserve">
+  <data name="UnreadToolTip" xml:space="preserve">
     <value>This item has unread changes</value>
   </data>
   <data name="Created" xml:space="preserve">
@@ -231,5 +231,29 @@
   </data>
   <data name="Settings_ShowRecycleBinEntries" xml:space="preserve">
     <value>Show recycle bin items</value>
+  </data>
+  <data name="CopiedLinkToClipboard" xml:space="preserve">
+    <value>Copied link to clipboard</value>
+  </data>
+  <data name="CopyLinkToClipboard" xml:space="preserve">
+    <value>Copy link to clipboard</value>
+  </data>
+  <data name="RecycleBinToolTip" xml:space="preserve">
+    <value>This item is in a recycle bin</value>
+  </data>
+  <data name="LockedToolTip" xml:space="preserve">
+    <value>This section is locked</value>
+  </data>
+  <data name="UnlockedToolTip" xml:space="preserve">
+    <value>This section is unlocked</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="Property" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
   </data>
 </root>

@@ -21,7 +21,7 @@ internal static class EmptyContentHelper
         Title = NoMatchesFound.Title,
         Icon = NoMatchesFound.Icon,
         Subtitle = Resources.SeeMoreCommands,
-        MoreCommands = [.. PageHelper.GetMoreCommands(listPage, item, true)]
+        MoreCommands = PageHelper.GetMoreCommands(item, listPage, true).ToContextItems()
     };
 
     public static CommandItem GetNotMatchesFoundWithCommands(IExternalItemsChanged listPage, Root root) => new()
