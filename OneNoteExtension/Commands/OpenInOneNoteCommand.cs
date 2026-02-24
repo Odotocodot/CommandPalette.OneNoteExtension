@@ -23,13 +23,4 @@ internal sealed partial class OpenInOneNoteCommand : InvokableCommand
         OneNoteHelper.OpenInOneNote(_item.Id, _newWindow);
         return CommandResult.Dismiss();
     }
-
-    public static ICommand[] GetAll(IOneNoteItem item)
-    {
-        return
-        [
-            new OpenInOneNoteCommand(item, false),
-            new OpenInOneNoteCommand(item, true)
-        ];
-    }
 }

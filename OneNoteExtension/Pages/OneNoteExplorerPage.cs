@@ -20,17 +20,17 @@ internal partial class OneNoteExplorerPage : SearchPage, IExternalItemsChanged
     private SearchParameters _searchParameters;
 
     private static readonly SearchParameters _scopeSearch = new(
-        (search, page) => OneNoteHelper.FindPages(search, page._item).AsListItems(true, true),
+        (search, page) => OneNoteHelper.FindPages(search, page._item).ToListItems(true, true),
         (search, page) => page.OnSearchChanged(search, true));
 
     private static readonly SearchParameters _titleSearch = new(
-        (search, page) => page._item.Descendants().FilterItems(search).AsListItems(true, true),
+        (search, page) => page._item.Descendants().FilterItems(search).ToListItems(true, true),
         (search, page) => page.OnSearchChanged(search, false));
 
     private static readonly SearchParameters _childrenSearch = new(
         (search, page) => string.IsNullOrWhiteSpace(search)
-            ? page._item.Children.AsListItems(false, false).Prepend(new OpenOrCreateItemListItem(page, page._item))
-            : page._item.Children.FilterItems(search).AsListItems(false, false),
+            ? page._item.Children.ToListItems(false, false).Prepend(new OneNoteItemListItem(page, page._item))
+            : page._item.Children.FilterItems(search).ToListItems(false, false),
         (search, page) =>
         {
             page._searchItems.Clear();

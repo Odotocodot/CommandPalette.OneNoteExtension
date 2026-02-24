@@ -1,19 +1,28 @@
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+using System.Threading.Tasks;
 using LinqToOneNote;
 using LinqToOneNote.Abstractions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using OneNoteExtension.Commands;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.Pages;
+using OneNoteExtension.Pages.Core;
 using OneNoteExtension.Properties;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OneNoteExtension.ListItems;
 
 internal partial class OneNoteItemListItem : ListItem
 {
+    private static readonly CompositeFormat openXInOneNote = CompositeFormat.Parse(Resources.OpenXInOneNote);
+    public OneNoteItemListItem(IExternalItemsChanged listPage, IOneNoteItem item) : this(item, false, true)
+    {
+        Title = string.Format(CultureInfo.CurrentCulture, openXInOneNote, item.Name);
+        Subtitle = Resources.SeeMoreCommands;
+        MoreCommands = PageHelper.GetMoreCommands(item, listPage).ToContextItems();
+    }
+
     public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpenInOneNote, IconInfo? icon = null)
     {
         //Tags

@@ -15,6 +15,15 @@ namespace OneNoteExtension.Helpers;
 
 internal static class PageHelper
 {
+    //For top level commands, the Page.Name should be equal to the Page.Title property
+    public static Page[] TopLevelCommands =>
+    [
+        new DefaultSearchPage(),
+        new RecentItemsPage(),
+        new OneNoteExplorerRootPage(),
+        new CreateItemFormPage.QuickNote(),
+    ];
+
     public static CommandContextItem ToContextItem(this ICommand command, IContextItem[]? moreCommands = null)
     {
         if(command is Page page)
@@ -29,7 +38,7 @@ internal static class PageHelper
         return Array.ConvertAll(commands, c => c.ToContextItem(moreCommands));
     }
 
-    public static IEnumerable<OneNoteItemListItem> AsListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
+    public static IEnumerable<OneNoteItemListItem> ToListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
     {
         return source.Where(item => SettingsManager.Instance.ShowRecycleBinEntries || !item.IsInRecycleBin())
                      .Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, icon));

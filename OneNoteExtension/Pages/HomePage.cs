@@ -14,5 +14,5 @@ internal sealed partial class HomePage : ListPage
         Icon = Icons.Logo;
     }
 
-    public override IListItem[] GetItems() => Array.ConvertAll(TopLevelCommands.Commands,static p => new ListItem(p));
+    public override IListItem[] GetItems() => Array.ConvertAll(PageHelper.TopLevelCommands,static p => new ListItem(p));
 }

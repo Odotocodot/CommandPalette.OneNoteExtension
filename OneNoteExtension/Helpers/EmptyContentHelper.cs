@@ -44,7 +44,7 @@ internal static class EmptyContentHelper
         MoreCommands =
         [
             new OpenOneNoteCommand().ToContextItem(),
-            ..TopLevelCommands.Commands.Skip(1).Select(p => p.ToContextItem()),
+            ..PageHelper.TopLevelCommands.Skip(1).Select(p => p.ToContextItem()),
         ]
     };
 

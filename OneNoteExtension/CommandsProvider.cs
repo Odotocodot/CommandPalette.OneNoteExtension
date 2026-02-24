@@ -22,7 +22,7 @@ public partial class CommandsProvider : CommandProvider
         _settingsManager.Settings.SettingsChanged += OnSettingsChanged;
         IContextItem[] moreCommands = [_settingsManager.Settings.SettingsPage.ToContextItem()];
         _homePage = [new HomePage().ToContextItem(moreCommands)];
-        _topLevelCommands = Helpers.TopLevelCommands.Commands.ToContextItems(moreCommands);
+        _topLevelCommands = PageHelper.TopLevelCommands.ToContextItems(moreCommands);
     }
 
     private void OnSettingsChanged(object sender, Settings args) => RaiseItemsChanged();

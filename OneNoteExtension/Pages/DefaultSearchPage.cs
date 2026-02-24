@@ -24,5 +24,5 @@ internal sealed partial class DefaultSearchPage : SearchPage
         RaiseItemsChanged();
     }
 
-    protected override IEnumerable<ListItem> GetItemsAction(string search) => OneNoteHelper.FindPages(search).AsListItems(true, true);
+    protected override IEnumerable<ListItem> GetItemsAction(string search) => OneNoteHelper.FindPages(search).ToListItems(true, true);
 }

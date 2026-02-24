@@ -38,6 +38,6 @@ internal partial class RecentItemsPage : LoadMorePage
         return OneNoteHelper.GetFullHierarchy().Notebooks
                             .GetAllPages()
                             .OrderByDescending(p => p.LastModified)
-                            .AsListItems(true, true, Icons.RecentPage);
+                            .ToListItems(true, true, Icons.RecentPage);
     }
 }

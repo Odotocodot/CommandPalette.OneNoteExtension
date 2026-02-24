@@ -18,10 +18,10 @@ internal sealed partial class OpenOneNoteCommand : InvokableCommand
     public override ICommandResult Invoke()
     {
         var mostRecentPage = OneNoteHelper.GetFullHierarchy().Notebooks
-                                  .GetAllPages()
-                                  .Where(i => !i.IsInRecycleBin)
-                                  .OrderByDescending(pg => pg.LastModified)
-                                  .First();
+                                          .GetAllPages()
+                                          .Where(i => !i.IsInRecycleBin)
+                                          .OrderByDescending(pg => pg.LastModified)
+                                          .First();
 
         OneNoteHelper.OpenInOneNote(mostRecentPage.Id, false);
         return CommandResult.Dismiss();

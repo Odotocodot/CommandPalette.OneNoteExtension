@@ -22,8 +22,8 @@ internal partial class OneNoteExplorerRootPage : DynamicListPage, IExternalItems
         var root = OneNoteHelper.GetFullHierarchy();
         var notebooks = root.Notebooks;
         ListItem[] results = string.IsNullOrWhiteSpace(SearchText)
-            ? [new OpenOneNoteListItem(this, root), .. notebooks.AsListItems(false, false)]
-            : [.. notebooks.FilterItems(SearchText).AsListItems(false, false)];
+            ? [new OpenOneNoteListItem(this, root), .. notebooks.ToListItems(false, false)]
+            : [.. notebooks.FilterItems(SearchText).ToListItems(false, false)];
 
         if (results.Length == 0)
         {
