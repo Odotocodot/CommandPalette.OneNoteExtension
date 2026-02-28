@@ -32,6 +32,7 @@
 		<ProjectCapability Include="Msix" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="Humanizer.Core" />
 		<PackageReference Include="LinqToOneNote" />
 		<PackageReference Include="Microsoft.CommandPalette.Extensions" />
 		<PackageReference Include="Microsoft.Windows.CsWinRT" />

@@ -38,10 +38,10 @@ internal static class PageHelper
         return Array.ConvertAll(commands, c => c.ToContextItem(moreCommands));
     }
 
-    public static IEnumerable<OneNoteItemListItem> ToListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, IconInfo? icon = null)
+    public static IEnumerable<OneNoteItemListItem> ToListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, bool humanizeLastModified = false, IconInfo? icon = null)
     {
         return source.Where(item => SettingsManager.Instance.ShowRecycleBinEntries || !item.IsInRecycleBin())
-                     .Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, icon));
+                     .Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, humanizeLastModified, icon));
     }
 
     public static IEnumerable<IOneNoteItem> FilterItems(this IEnumerable<IOneNoteItem> source, string search)

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
+using Humanizer;
 using LinqToOneNote;
 using LinqToOneNote.Abstractions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
@@ -9,39 +10,31 @@ using OneNoteExtension.Commands;
 using OneNoteExtension.Helpers;
 using OneNoteExtension.Pages;
 using OneNoteExtension.Pages.Core;
-using OneNoteExtension.Properties;
+using Resources = OneNoteExtension.Properties.Resources;
 
 namespace OneNoteExtension.ListItems;
 
 internal partial class OneNoteItemListItem : ListItem
 {
     private static readonly CompositeFormat openXInOneNote = CompositeFormat.Parse(Resources.OpenXInOneNote);
-    public OneNoteItemListItem(IExternalItemsChanged listPage, IOneNoteItem item) : this(item, false, true)
+    public OneNoteItemListItem(IExternalItemsChanged listPage, IOneNoteItem item) : this(item, false, true, false)
     {
         Title = string.Format(CultureInfo.CurrentCulture, openXInOneNote, item.Name);
         Subtitle = Resources.SeeMoreCommands;
         MoreCommands = PageHelper.GetMoreCommands(item, listPage).ToContextItems();
     }
 
-    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpenInOneNote, IconInfo? icon = null)
+    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpenInOneNote, bool humanizeLastModified, IconInfo? icon = null)
     {
         //Tags
         var tags = new List<Tag>();
         if (item.IsUnread)
         {
-            tags.Add(new Tag
-            {
-                Icon = Icons.UnreadChanges,
-                ToolTip = Resources.UnreadToolTip
-            });
+            tags.Add(new Tag { Icon = Icons.UnreadChanges, ToolTip = Resources.UnreadToolTip });
         }
         if (item.IsInRecycleBin())
         {
-            tags.Add(new Tag
-            {
-                Icon = Icons.RecycleBin,
-                ToolTip = Resources.RecycleBinToolTip
-            });
+            tags.Add(new Tag { Icon = Icons.RecycleBin, ToolTip = Resources.RecycleBinToolTip });
         }
         var section = item as Section;
         if (section?.Encrypted == true)
@@ -50,6 +43,10 @@ internal partial class OneNoteItemListItem : ListItem
                 ? new Tag { Icon = Icons.Locked, ToolTip = Resources.LockedToolTip }
                 : new Tag { Icon = Icons.Unlocked, ToolTip = Resources.UnlockedToolTip }
                 );
+        }
+        if (humanizeLastModified)
+        {
+            tags.Add(new Tag(item.LastModified.Humanize(culture: CultureInfo.CurrentCulture)) { ToolTip = Resources.LastModified});
         }
 
         //Details Body
