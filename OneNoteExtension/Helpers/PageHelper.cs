@@ -26,7 +26,7 @@ internal static class PageHelper
 
     public static CommandContextItem ToContextItem(this ICommand command, IContextItem[]? moreCommands = null)
     {
-        if(command is Page page)
+        if (command is Page page && !string.IsNullOrWhiteSpace(page.Title))
         {
             page.Name = page.Title;
         }
