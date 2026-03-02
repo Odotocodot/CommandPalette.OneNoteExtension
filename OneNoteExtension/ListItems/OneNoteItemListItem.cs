@@ -24,7 +24,7 @@ internal partial class OneNoteItemListItem : ListItem
         MoreCommands = PageHelper.GetMoreCommands(item, listPage).ToContextItems();
     }
 
-    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpenInOneNote, bool humanizeLastModified, IconInfo? icon = null)
+    public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpenInOneNote, bool addLastModifiedTag, IconInfo? icon = null)
     {
         //Tags
         var tags = new List<Tag>();
@@ -42,39 +42,11 @@ internal partial class OneNoteItemListItem : ListItem
             tags.Add(section.Locked
                 ? new Tag { Icon = Icons.Locked, ToolTip = Resources.LockedToolTip }
                 : new Tag { Icon = Icons.Unlocked, ToolTip = Resources.UnlockedToolTip }
-                );
+            );
         }
-        if (humanizeLastModified)
+        if (addLastModifiedTag)
         {
-            tags.Add(new Tag(item.LastModified.Humanize(culture: CultureInfo.CurrentCulture)) { ToolTip = Resources.LastModified});
-        }
-
-        //Details Body
-        var sb = new StringBuilder();
-        sb.Append(CultureInfo.CurrentCulture, $"""
-            | {Resources.Property} | {Resources.Value} |
-            | :-- | --: |
-            """);
-
-        var page = item as LinqToOneNote.Page;
-        if (page != null)
-        {
-            AddProperty(sb, Resources.Created, page.Created);
-        }
-        AddProperty(sb, Resources.LastModified, item.LastModified);
-
-        if (page == null)
-        {
-            if (item is INotebookOrSectionGroup notebookOrSectionGroup)
-            {
-                AddProperty(sb, Resources.Sections, notebookOrSectionGroup.Sections.Count);
-                AddProperty(sb, Resources.SectionGroups, notebookOrSectionGroup.SectionGroups.Count);
-                //AddProperty(sb, Resources.TotalPages, notebookOrSectionGroup.Children.GetAllPages().Count());
-            }
-            if (section != null)
-            {
-                AddProperty(sb, Resources.Pages, section.Pages.Count);
-            }
+            tags.Add(new Tag(item.LastModified.Humanize(culture: CultureInfo.CurrentCulture)) { ToolTip = Resources.LastModified });
         }
 
         //Subtitle
@@ -84,6 +56,7 @@ internal partial class OneNoteItemListItem : ListItem
         }
 
         //Command 
+        var page = item as LinqToOneNote.Page;
         Command command;
         if (commandIsOpenInOneNote || page != null || section is { Encrypted: true, Locked: true })
         {
@@ -95,30 +68,65 @@ internal partial class OneNoteItemListItem : ListItem
         }
 
         //Details Metadata
-        var metadata = new List<DetailsElement>
+        var metadata = new List<DetailsElement>();
+        if (page != null)
         {
-            new()
+            metadata.Add(new DetailsElement
             {
-                Key = Resources.Commands,
-                Data = new DetailsCommands { Commands = PageHelper.GetMoreCommands(item, null, true) }
+                Key = Resources.Created,
+                Data = new DetailsTags { Tags = [new Tag(page.Created.ToString(CultureInfo.CurrentCulture))] }
+            });
+        }
+
+        metadata.Add(new DetailsElement
+        {
+            Key = Resources.LastModified,
+            Data = new DetailsTags { Tags = [new Tag(item.LastModified.ToString(CultureInfo.CurrentCulture))] }
+        });
+
+        if (page == null)
+        {
+            var childrenTags = new List<Tag>();
+            if (item is INotebookOrSectionGroup notebookOrSectionGroup)
+            {
+                childrenTags.Add(new Tag(Resources.Sections.ToLower(CultureInfo.CurrentCulture).ToQuantity(notebookOrSectionGroup.Sections.Count, null, CultureInfo.CurrentCulture)));
+                childrenTags.Add(new Tag(Resources.SectionGroups.ToLower(CultureInfo.CurrentCulture).ToQuantity(notebookOrSectionGroup.SectionGroups.Count, null, CultureInfo.CurrentCulture)));
+                // Could add tag for total pages
             }
-        };
+            if (section != null)
+            {
+                childrenTags.Add(new Tag(Resources.Pages.ToLower(CultureInfo.CurrentCulture).ToQuantity(section.Pages.Count, null, CultureInfo.CurrentCulture)));
+            }
+            metadata.Add(new DetailsElement
+            {
+                Key = Resources.Children,
+                Data = new DetailsTags { Tags = childrenTags.ToArray() }
+            });
+        }
+
         if (item is IHasPath hasPath)
         {
-            metadata.Insert(0, new()
+            metadata.Add(new DetailsElement
             {
                 Key = Resources.Path,
                 Data = new DetailsLink(hasPath.Path)
             });
         }
+
         if (tags.Count > 0)
         {
-            metadata.Add(new()
+            metadata.Add(new DetailsElement
             {
                 Key = Resources.Tags,
                 Data = new DetailsTags { Tags = tags.ToArray() }
             });
         }
+
+        metadata.Add(new DetailsElement
+        {
+            Key = Resources.Commands,
+            Data = new DetailsCommands { Commands = PageHelper.GetMoreCommands(item, null, true) }
+        });
 
         Title = item is Notebook notebook ? notebook.DisplayName : item.Name;
         Command = command;
@@ -128,9 +136,7 @@ internal partial class OneNoteItemListItem : ListItem
         Details = new Details
         {
             Title = item.Name,
-            Body = sb.ToString(),
             Metadata = metadata.ToArray(),
         };
     }
-    private static void AddProperty<T>(StringBuilder sb, string name, T value) => sb.Append(CultureInfo.CurrentCulture, $"\r\n| {name} | {value} |");
 }

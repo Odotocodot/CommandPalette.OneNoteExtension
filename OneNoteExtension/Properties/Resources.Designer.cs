@@ -61,6 +61,15 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Children.
+        /// </summary>
+        internal static string Children {
+            get {
+                return ResourceManager.GetString("Children", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commands.
         /// </summary>
         internal static string Commands {
@@ -79,7 +88,7 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy link to clipboard.
+        ///   Looks up a localized string similar to Copy Link to Clipboard.
         /// </summary>
         internal static string CopyLinkToClipboard {
             get {
@@ -331,15 +340,6 @@ namespace OneNoteExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Property.
-        /// </summary>
-        internal static string Property {
-            get {
-                return ResourceManager.GetString("Property", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This item is in a recycle bin.
         /// </summary>
         internal static string RecycleBinToolTip {
@@ -444,15 +444,6 @@ namespace OneNoteExtension.Properties {
         internal static string UnreadToolTip {
             get {
                 return ResourceManager.GetString("UnreadToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value.
-        /// </summary>
-        internal static string Value {
-            get {
-                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
         
