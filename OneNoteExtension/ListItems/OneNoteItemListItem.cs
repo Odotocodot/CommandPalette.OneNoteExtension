@@ -27,14 +27,14 @@ internal partial class OneNoteItemListItem : ListItem
     public OneNoteItemListItem(IOneNoteItem item, bool addSubtitle, bool commandIsOpenInOneNote, bool addLastModifiedTag, IconInfo? icon = null)
     {
         //Tags
-        var tags = new List<Tag>();
+        var tags = new List<Tag>(4);
         if (item.IsUnread)
         {
             tags.Add(new Tag { Icon = Icons.UnreadChanges, ToolTip = Resources.UnreadToolTip });
         }
         if (item.IsInRecycleBin())
         {
-            tags.Add(new Tag { Icon = Icons.RecycleBin, ToolTip = Resources.RecycleBinToolTip });
+            tags.Add(new Tag { Text = "♻", ToolTip = Resources.RecycleBinToolTip });
         }
         var section = item as LinqToOneNote.Section;
         if (section?.Encrypted == true)
@@ -68,7 +68,7 @@ internal partial class OneNoteItemListItem : ListItem
         }
 
         //Details Metadata
-        var metadata = new List<DetailsElement>();
+        var metadata = new List<DetailsElement>(6);
         if (page != null)
         {
             metadata.Add(new DetailsElement
@@ -86,7 +86,7 @@ internal partial class OneNoteItemListItem : ListItem
 
         if (page == null)
         {
-            var childrenTags = new List<Tag>();
+            var childrenTags = new List<Tag>(3);
             if (item is INotebookOrSectionGroup notebookOrSectionGroup)
             {
                 childrenTags.Add(new Tag(Resources.Sections.ToLower(CultureInfo.CurrentCulture).ToQuantity(notebookOrSectionGroup.Sections.Count, null, CultureInfo.CurrentCulture)));

@@ -40,8 +40,10 @@ internal static class PageHelper
 
     public static IEnumerable<OneNoteItemListItem> ToListItems(this IEnumerable<IOneNoteItem> source, bool addSubtitle, bool commandIsOpen, bool addLastModifiedTag = false, IconInfo? icon = null)
     {
-        return source.Where(item => SettingsManager.Instance.ShowRecycleBinEntries || !item.IsInRecycleBin())
-                     .Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, addLastModifiedTag, icon));
+        var results = SettingsManager.Instance.ShowRecycleBinEntries 
+            ? source
+            : source.Where(item => !item.IsInRecycleBin());
+        return results.Select(item => new OneNoteItemListItem(item, addSubtitle, commandIsOpen, addLastModifiedTag, icon));
     }
 
     public static IEnumerable<IOneNoteItem> FilterItems(this IEnumerable<IOneNoteItem> source, string search)

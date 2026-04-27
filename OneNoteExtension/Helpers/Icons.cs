@@ -17,7 +17,7 @@ internal static class Icons
     public static IconInfo RecentPage { get; } = FromAssetName("page_recent");
     public static IconInfo OneNoteExplorer { get; } = FromAssetName("notebook_explorer");
     public static IconInfo Page { get; } = FromAssetName("page");
-    public static IconInfo RecycleBin { get; } = FromAssetName("recycle_bin");
+    public static IconInfo RecycleBin { get; } = new IconInfo("\ue74d"); //Delete //FromAssetName("recycle_bin");
     public static IconInfo NewPage { get; } = FromAssetName("page_new");
     public static IconInfo NewSection { get; } = FromAssetName("section_new");
     public static IconInfo NewSectionGroup { get; } = FromAssetName("section_group_new");
