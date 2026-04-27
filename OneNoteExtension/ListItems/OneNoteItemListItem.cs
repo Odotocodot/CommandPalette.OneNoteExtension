@@ -36,7 +36,7 @@ internal partial class OneNoteItemListItem : ListItem
         {
             tags.Add(new Tag { Icon = Icons.RecycleBin, ToolTip = Resources.RecycleBinToolTip });
         }
-        var section = item as Section;
+        var section = item as LinqToOneNote.Section;
         if (section?.Encrypted == true)
         {
             tags.Add(section.Locked

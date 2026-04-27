@@ -35,7 +35,7 @@ internal static class Icons
     {
         Notebook nb => FromAssetOrCreate("notebook", nb.Color),
         SectionGroup sg => sg.IsRecycleBin ? FromAssetName("recycle_bin") : FromAssetName("section_group"),
-        Section s => FromAssetOrCreate("section", s.Color),
+        LinqToOneNote.Section s => FromAssetOrCreate("section", s.Color),
         LinqToOneNote.Page => Page,
         _ => Logo,
     };

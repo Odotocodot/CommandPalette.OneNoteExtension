@@ -8,6 +8,7 @@ using OneNoteExtension.Pages;
 using OneNoteExtension.Pages.Core;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using Page = Microsoft.CommandPalette.Extensions.Toolkit.Page;
 
@@ -47,7 +48,7 @@ internal static class PageHelper
     public static IEnumerable<IOneNoteItem> FilterItems(this IEnumerable<IOneNoteItem> source, string search)
     {
         return ListHelpers.FilterList(source, search, ScoreFunction);
-        static int ScoreFunction(string search, IOneNoteItem item) => StringMatcher.FuzzySearch(search, item.Name).Score;
+        static int ScoreFunction(string search, IOneNoteItem item) => FuzzyStringMatcher.ScoreFuzzy(item.Name, search);
     }
 
     public static ICommand[] GetMoreCommands(IOneNoteItem item, IExternalItemsChanged? listPage, bool includeDefault = false)
@@ -66,7 +67,7 @@ internal static class PageHelper
                     moreCommands.Add(new CreateItemFormPage.SectionGroup(notebookOrSectionGroup, listPage));
                     moreCommands.Add(new CreateItemFormPage.Section(notebookOrSectionGroup, listPage));
                     break;
-                case Section section:
+                case LinqToOneNote.Section section:
                     moreCommands.Add(new CreateItemFormPage.Page(section, listPage));
                     break;
             }

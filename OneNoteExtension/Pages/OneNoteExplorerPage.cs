@@ -41,7 +41,7 @@ internal partial class OneNoteExplorerPage : SearchPage, IExternalItemsChanged
     public OneNoteExplorerPage(IOneNoteItem item)
     {
         _item = item;
-        if (item is not Section)
+        if (item is not LinqToOneNote.Section)
         {
             var filters = new OneNoteExplorerFilters();
             filters.PropChanged += Filters_PropChanged;
