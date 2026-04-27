@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
@@ -9,7 +10,7 @@ using OneNoteExtension.Properties;
 
 namespace OneNoteExtension.Pages;
 
-internal partial class RecentItemsPage : LoadMorePage
+internal partial class RecentItemsPage : SearchPage
 {
     public RecentItemsPage()
     {
@@ -32,12 +33,19 @@ internal partial class RecentItemsPage : LoadMorePage
         }
         return [.. _searchItems];
     }
+    public override void UpdateSearchText(string oldSearch, string newSearch)
+    {
+        _searchItems.Clear();
+        GetMoreItems(newSearch);
+        RaiseItemsChanged();
+    }
 
     protected override IEnumerable<ListItem> GetItemsAction(string search)
     {
-        return OneNoteHelper.GetFullHierarchy().Notebooks
-                            .GetAllPages()
-                            .OrderByDescending(p => p.LastModified)
-                            .ToListItems(true, true, true, Icons.RecentPage);
+        var pages = OneNoteHelper.GetFullHierarchy().Notebooks.GetAllPages(); //Maybe cache for performance?
+        var results = string.IsNullOrWhiteSpace(search)
+            ? pages 
+            : pages.Where(pg => FuzzyStringMatcher.ScoreFuzzy(search, pg.Name) > 0);
+        return results.OrderByDescending(static pg => pg.LastModified).ToListItems(true, true, true, Icons.RecentPage);
     }
 }
