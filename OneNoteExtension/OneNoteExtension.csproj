@@ -95,8 +95,8 @@
 	<PropertyGroup Condition="'$(Configuration)'!='Debug'">
 		<!-- In Release builds, trimming is enabled by default. 
          feel free to disable this if needed -->
-		<PublishTrimmed>true</PublishTrimmed>
-
+		<!--<PublishTrimmed>true</PublishTrimmed-->
+		
 		<!-- In release, also ignore the aforementioned ILLink warning -->
 		<ILLinkTreatWarningsAsErrors>false</ILLinkTreatWarningsAsErrors>
 	</PropertyGroup>
