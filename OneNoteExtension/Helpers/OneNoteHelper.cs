@@ -62,7 +62,7 @@ internal static class OneNoteHelper
     public static IEnumerable<Page> FindPages(string search)
     {
         ResetTimeout();
-        return OneNote.FindPages(search);
+        return string.IsNullOrWhiteSpace(search) ? [] : OneNote.FindPages(search);
     }
 
     public static IEnumerable<Page> FindPages(string search, IOneNoteItem scope)
