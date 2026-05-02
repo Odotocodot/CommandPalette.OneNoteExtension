@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LinqToOneNote;
 using Microsoft.CommandPalette.Extensions;
@@ -12,6 +11,7 @@ namespace OneNoteExtension.Pages;
 
 internal partial class RecentItemsPage : SearchPage
 {
+    private Root? _root;
     public RecentItemsPage()
     {
         Icon = Icons.RecentPage;
@@ -23,7 +23,10 @@ internal partial class RecentItemsPage : SearchPage
             _searchItems.Clear();
             RaiseItemsChanged();
         };
+        PageUnloaded += () => _root = null;
     }
+
+    public Root Root => _root ??= OneNoteHelper.GetFullHierarchy();
 
     public override IListItem[] GetItems()
     {
@@ -42,9 +45,9 @@ internal partial class RecentItemsPage : SearchPage
 
     protected override IEnumerable<ListItem> GetItemsAction(string search)
     {
-        var pages = OneNoteHelper.GetFullHierarchy().Notebooks.GetAllPages(); //Maybe cache for performance?
+        var pages = Root.Notebooks.GetAllPages();
         var results = string.IsNullOrWhiteSpace(search)
-            ? pages 
+            ? pages
             : pages.Where(pg => FuzzyStringMatcher.ScoreFuzzy(search, pg.Name) > 0);
         return results.OrderByDescending(static pg => pg.LastModified).ToListItems(true, true, true, Icons.RecentPage);
     }
