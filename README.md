@@ -49,10 +49,9 @@ This leads the plugin to display a similar view as shown in the image in [Create
 
 Creates a OneNote page at your [_Quick Notes Section_](quickNotesSection). To create a page in a specific section use the OneNote Explorer.
 
-## TODO
 
-- [ ] Publish package on:
-  - [ ] MS Store and/or
-  - [ ] WinGet
+## Contributing
+
+Pull requests for fixes and improvements are welcome! Though updates from me will be sparse.
 
 [quickNotesSection]: https://github.com/user-attachments/assets/b248a12b-78b5-4d07-9e62-d39c2c4a8a19
